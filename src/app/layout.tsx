@@ -1,7 +1,10 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
+import { Suspense } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+import './global.css'
+import { twMerge } from 'tailwind-merge'
+
+const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={twMerge('bg-gray-800 text-gray-100', nunito.className)}>
+        <Suspense>{children}</Suspense>
+      </body>
     </html>
   )
 }
