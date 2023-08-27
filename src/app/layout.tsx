@@ -18,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={twMerge('bg-gray-800 text-gray-100', nunito.className)}>
+      <body
+        className={twMerge(
+          'bg-gray-800 text-gray-100 min-w-[240px]',
+          nunito.className,
+        )}
+      >
         <Suspense>{children}</Suspense>
       </body>
     </html>

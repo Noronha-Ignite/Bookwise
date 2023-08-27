@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="grid grid-cols-[min(50%,700px),1fr] p-4">
-      <div className="relative bg-gradient-hero h-[calc(100vh-2rem)] rounded-md overflow-hidden">
+    <div className="grid grid-cols-[min(50%,700px),1fr] p-4 md:grid-cols-1">
+      <div className="relative bg-gradient-hero h-[calc(100vh-2rem)] rounded-md overflow-hidden md:hidden">
         <Image
           src="/assets/woman-reading.png"
           alt="Mulher lendo"
@@ -30,21 +30,39 @@ export default function Home() {
           </header>
 
           <div className="w-full flex flex-col gap-4">
-            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors">
-              <Image src="google.svg" alt="Google" width={32} height={32} />
-              <span className="text-md font-bold leading-base">
+            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors xs:gap-3">
+              <Image
+                src="google.svg"
+                alt="Google"
+                width={32}
+                height={32}
+                className="xs:w-6 xs:h-6"
+              />
+              <span className="text-md font-bold leading-base xs:text-xs">
                 Entrar com Google
               </span>
             </button>
-            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors">
-              <Image src="github.svg" alt="Github" width={32} height={32} />
-              <span className="text-md font-bold leading-base">
+            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors xs:gap-3">
+              <Image
+                src="github.svg"
+                alt="Github"
+                width={32}
+                height={32}
+                className="xs:w-6 xs:h-6"
+              />
+              <span className="text-md font-bold leading-base xs:text-xs">
                 Entrar com GitHub
               </span>
             </button>
-            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors">
-              <Image src="rocket.svg" alt="Rocket" width={32} height={32} />
-              <span className="text-md font-bold leading-base">
+            <button className="flex items-center w-full bg-gray-600 px-6 py-5 rounded-md gap-5 hover:bg-gray-500 transition-colors xs:gap-3">
+              <Image
+                src="rocket.svg"
+                alt="Rocket"
+                width={32}
+                height={32}
+                className="xs:w-6 xs:h-6"
+              />
+              <span className="text-md font-bold leading-base xs:text-xs">
                 Acessar como visitante
               </span>
             </button>
