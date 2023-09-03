@@ -77,10 +77,16 @@ module.exports = {
           700: '#181C2A',
           800: '#0E1116',
         },
+        hover: {
+          white: 'rgba(230, 232, 242, 0.04)',
+          purple: 'rgba(131, 129, 217, 0.06)',
+        },
       },
 
       boxShadow: {
         'primary-inner': 'inset 10px 5px 200px #255D6A30',
+        'outline-white': '0px 0px 0px 4px rgba(230, 232, 242, 0.04)',
+        'outline-purple': '0px 0px 0px 8px rgba(131, 129, 217, 0.06)',
       },
     },
     screens: {
