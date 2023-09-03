@@ -1,9 +1,13 @@
+import './global.css'
+import 'dayjs/locale/pt-br'
+
 import { Nunito } from 'next/font/google'
 import { Suspense } from 'react'
 
-import './global.css'
 import { twMerge } from 'tailwind-merge'
+import dayjs from 'dayjs'
 
+dayjs.locale('pt-br')
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
 
 export const metadata = {

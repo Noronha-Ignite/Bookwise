@@ -1,12 +1,11 @@
 import Image from 'next/image'
 
-import WomanReadingIMG from '@/assets/woman-reading.png'
 import LogoSVG from '@/assets/logo.svg'
 
 export const Hero = () => (
   <div className="relative h-full overflow-hidden rounded-md bg-gradient-hero md:hidden">
     <Image
-      src={WomanReadingIMG}
+      src={'/images/woman-reading.png'}
       alt="Mulher lendo"
       width={738}
       height={984}
