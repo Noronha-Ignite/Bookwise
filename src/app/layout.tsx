@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={twMerge(
-          'bg-gray-800 text-gray-100 min-w-[240px]',
+          'min-w-[240px] bg-gray-800 text-gray-100',
           nunito.className,
         )}
       >
