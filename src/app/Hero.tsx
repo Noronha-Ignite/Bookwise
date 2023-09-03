@@ -1,16 +1,19 @@
 import Image from 'next/image'
 
+import WomanReadingIMG from '@/assets/woman-reading.png'
+import LogoSVG from '@/assets/logo.svg'
+
 export const Hero = () => (
   <div className="relative h-full overflow-hidden rounded-md bg-gradient-hero md:hidden">
     <Image
-      src="/assets/woman-reading.png"
+      src={WomanReadingIMG}
       alt="Mulher lendo"
       width={738}
       height={984}
       className="h-full object-cover object-bottom opacity-[0.18] blur-[0.5px]"
     />
     <Image
-      src="logo.svg"
+      src={LogoSVG}
       alt="Bookwise"
       width={232}
       height={58}

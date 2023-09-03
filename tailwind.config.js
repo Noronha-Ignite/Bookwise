@@ -53,7 +53,7 @@ module.exports = {
         xs: '2.5px',
         sm: '5px',
         md: '8px',
-        lg: '16px',
+        lg: '12px',
         full: '9999px',
       },
 
@@ -77,6 +77,10 @@ module.exports = {
           700: '#181C2A',
           800: '#0E1116',
         },
+      },
+
+      boxShadow: {
+        'primary-inner': 'inset 10px 5px 200px #255D6A30',
       },
     },
     screens: {
