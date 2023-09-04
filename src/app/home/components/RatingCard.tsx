@@ -3,7 +3,7 @@ import { Book, Rating, User } from '@prisma/client'
 
 import { Box } from '@/components/Box'
 import { formatDifferenceToToday } from '@/utils/date'
-import { Star } from '@/components/Icons'
+import { StarRating } from '@/components/StarRating'
 
 type RatingCardProps = {
   rating: Rating & {
@@ -34,15 +34,7 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
           </p>
         </div>
 
-        <div className="flex gap-1">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Star
-              key={index}
-              className="text-purple-100"
-              weight={index < rating.rate ? 'fill' : 'regular'}
-            />
-          ))}
-        </div>
+        <StarRating rate={rating.rate} />
       </header>
 
       <div className="flex gap-5">

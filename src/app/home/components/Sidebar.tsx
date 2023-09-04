@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { SignIn } from 'phosphor-react'
+
+import { SignIn } from '@/components/Icons'
 import LogoSVG from '@/assets/logo.svg'
 
 import { SidebarItem } from './SidebarItem'

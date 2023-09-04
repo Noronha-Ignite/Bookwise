@@ -1,7 +1,9 @@
 import { prisma } from '@/lib/prisma'
 import { CaretRight } from '@/components/Icons'
 import { Link } from '@/components/Link'
+
 import { RatingCard } from './components/RatingCard'
+import { BookCard } from './components/BookCard'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
@@ -22,6 +24,9 @@ export default async function Home() {
         _count: 'desc',
       },
     },
+    include: {
+      ratings: true,
+    },
   })
 
   return (
@@ -41,6 +46,12 @@ export default async function Home() {
 
           <Link rightIcon={CaretRight}>Ver todos</Link>
         </header>
+
+        <div className="no-scrollbar flex h-[calc(100vh-202px)] flex-col gap-3 overflow-y-auto">
+          {popularBooks.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
       </section>
     </div>
   )
