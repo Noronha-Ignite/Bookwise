@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 import dayjs from 'dayjs'
+import { QueryProvider } from '@/lib/queryClient'
 
 dayjs.locale('pt-br')
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
@@ -27,7 +28,9 @@ export default function RootLayout({
           nunito.className,
         )}
       >
-        <Suspense>{children}</Suspense>
+        <QueryProvider>
+          <Suspense>{children}</Suspense>
+        </QueryProvider>
       </body>
     </html>
   )

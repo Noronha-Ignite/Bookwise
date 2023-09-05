@@ -1,4 +1,3 @@
-import { Book, Rating } from '@prisma/client'
 import Image from 'next/image'
 
 import { Box } from '@/components/Box'
@@ -6,20 +5,19 @@ import { StarRating } from '@/components/StarRating'
 import { getRatingAverage } from '@/utils/rating'
 
 type BookCardProps = {
-  book: Book & {
-    ratings: Rating[]
-  }
+  book: BookWithRating
+  variant?: 'big' | 'normal'
 }
 
-export const BookCard = ({ book }: BookCardProps) => {
+export const BookCard = ({ book, variant = 'normal' }: BookCardProps) => {
   return (
     <Box variant="small">
       <div className="flex gap-5">
         <Image
           src={`/images/books/${book.cover_url}`}
           alt={book.name}
-          width={64}
-          height={94}
+          width={variant === 'normal' ? 64 : 108}
+          height={variant === 'normal' ? 94 : 152}
           className="h-full object-cover"
         />
 

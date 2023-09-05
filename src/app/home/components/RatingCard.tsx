@@ -1,15 +1,11 @@
 import Image from 'next/image'
-import { Book, Rating, User } from '@prisma/client'
 
 import { Box } from '@/components/Box'
 import { formatDifferenceToToday } from '@/utils/date'
 import { StarRating } from '@/components/StarRating'
 
 type RatingCardProps = {
-  rating: Rating & {
-    user: User
-    book: Book
-  }
+  rating: RatingWithUserAndBook
 }
 
 export const RatingCard = ({ rating }: RatingCardProps) => {
