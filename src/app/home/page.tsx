@@ -1,9 +1,9 @@
 import { prisma } from '@/lib/prisma'
-import { CaretRight } from '@/components/Icons'
-import { Link } from '@/components/Link'
+import { CaretRight } from '@/components/core/Icons'
+import { Link } from '@/components/core/Link'
+import { RatingCard } from '@/components/RatingCard'
+import { BookCard } from '@/components/BookCard'
 
-import { RatingCard } from './components/RatingCard'
-import { BookCard } from './components/BookCard'
 import { Header } from './components/Header'
 
 export default async function Home() {

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 
-import { SignIn } from '@/components/Icons'
+import { SignIn } from '@/components/core/Icons'
 import LogoSVG from '@/assets/logo.svg'
 
 import { SidebarItem } from './SidebarItem'

@@ -3,12 +3,12 @@
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 
-import { SearchInput } from '@/components/SearchInput'
+import { SearchInput } from '@/components/core/SearchInput'
+import { BookCard } from '@/components/BookCard'
 import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
 import { api } from '@/lib/axios'
 import { CategorySelectTab } from './components/CategorySelectTab'
-import { BookCard } from '../components/BookCard'
 
 type FetchBooksQuery = {
   category?: string

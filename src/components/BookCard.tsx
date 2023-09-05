@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import { Box } from '@/components/Box'
-import { StarRating } from '@/components/StarRating'
+import { Box } from './core/Box'
+import { StarRating } from './core/StarRating'
 import { getRatingAverage } from '@/utils/rating'
 
 type BookCardProps = {
