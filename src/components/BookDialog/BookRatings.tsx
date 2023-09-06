@@ -9,12 +9,19 @@ import { Book } from '@prisma/client'
 import Image from 'next/image'
 import { Link } from '../core/Link'
 import { LoadingBookRating } from './LoadingBookRating'
+import { useSignInModal } from '@/contexts/signIn'
+import { useSession } from 'next-auth/react'
 
 type BookRatingsProps = {
   book: Book
 }
 
 export const BookRatings = ({ book }: BookRatingsProps) => {
+  const { status } = useSession()
+  const { openSignInModal } = useSignInModal()
+
+  const isAuthenticated = status === 'authenticated'
+
   const {
     data: ratings,
     isLoading,
@@ -36,12 +43,20 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
     return <LoadingBookRating />
   }
 
+  const handleRate = () => {
+    if (!isAuthenticated) {
+      return openSignInModal()
+    }
+  }
+
   return (
     <section className="flex h-40 flex-1 flex-col gap-4">
-      <header className="flex w-full justify-between">
+      <header className="flex w-full justify-between px-4 pb-0 pt-2">
         <h6 className="text-gray-200">Avaliações</h6>
 
-        <Link href="#">Avaliar</Link>
+        <Link href="#" onClick={handleRate}>
+          Avaliar
+        </Link>
       </header>
 
       {ratings?.map((rating) => (

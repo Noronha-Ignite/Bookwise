@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react'
-import { Box } from './core/Box'
+import { Box } from './Box'
 import { twMerge } from 'tailwind-merge'
 
 type SkeletonCardProps = {

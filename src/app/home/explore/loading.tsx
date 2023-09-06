@@ -1,6 +1,6 @@
 import { Header } from '../components/Header'
 import { LoadingBookCard } from '@/components/BookCard/loading'
-import { SkeletonCard } from '@/components/SkeletonCard'
+import { SkeletonCard } from '@/components/core/SkeletonCard'
 import { twMerge } from 'tailwind-merge'
 import { CategorySelectTab } from './components/CategorySelectTab'
 

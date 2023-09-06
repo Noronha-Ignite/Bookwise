@@ -1,11 +1,11 @@
-import { SkeletonCard } from '../SkeletonCard'
+import { SkeletonCard } from '../core/SkeletonCard'
 import { Box } from '../core/Box'
 import { StarRating } from '../core/StarRating'
 
 export const LoadingBookRating = () => {
   return (
     <section className="flex h-40 flex-1 flex-col gap-4">
-      <header className="flex w-full justify-between">
+      <header className="flex w-full justify-between px-4 pb-0 pt-2">
         <h6 className="text-gray-200">Avaliações</h6>
       </header>
 

@@ -10,6 +10,7 @@ import { QueryProvider } from '@/contexts/queryClient'
 import { AuthSessionProvider } from '@/contexts/session'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth/authOptions'
+import { SignInModalProvider } from '@/contexts/signIn'
 
 dayjs.locale('pt-br')
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
@@ -35,7 +36,9 @@ export default async function RootLayout({
       >
         <AuthSessionProvider session={session}>
           <QueryProvider>
-            <Suspense>{children}</Suspense>
+            <SignInModalProvider>
+              <Suspense>{children}</Suspense>
+            </SignInModalProvider>
           </QueryProvider>
         </AuthSessionProvider>
       </body>

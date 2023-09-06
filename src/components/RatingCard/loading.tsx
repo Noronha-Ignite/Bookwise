@@ -1,4 +1,4 @@
-import { SkeletonCard } from '../SkeletonCard'
+import { SkeletonCard } from '../core/SkeletonCard'
 import { Box } from '../core/Box'
 import { StarRating } from '../core/StarRating'
 

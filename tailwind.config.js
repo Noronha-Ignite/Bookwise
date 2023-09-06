@@ -68,6 +68,10 @@ module.exports = {
         10: '2.5rem',
       },
 
+      padding: {
+        18: '4.5rem',
+      },
+
       borderRadius: {
         xs: '2.5px',
         sm: '5px',

@@ -5,15 +5,17 @@ import Image from 'next/image'
 import { SignIn, SignOut } from '@/components/core/Icons'
 import LogoSVG from '@/assets/logo.svg'
 
-import { SidebarItem } from './SidebarItem'
 import { routes, useGetCurrentRoute } from '../routes'
 import { signOut, useSession } from 'next-auth/react'
 import { Avatar } from '@/components/core/Avatar'
 import { getFirstName } from '@/utils/string'
+import { useSignInModal } from '@/contexts/signIn'
+import { SidebarItem } from './SidebarItem'
 
 export const Sidebar = () => {
   const currentRoute = useGetCurrentRoute()
   const { data, status } = useSession()
+  const { openSignInModal } = useSignInModal()
 
   const isAuthenticated = status === 'authenticated'
   const user = data?.user
@@ -53,7 +55,10 @@ export const Sidebar = () => {
           </button>
         </div>
       ) : (
-        <button className="flex items-center gap-3 rounded-sm px-2 py-1 font-bold transition-colors hover:bg-hover-white">
+        <button
+          onClick={openSignInModal}
+          className="flex items-center gap-3 rounded-sm px-2 py-1 font-bold transition-colors hover:bg-hover-white"
+        >
           Fazer login
           <SignIn className="text-green-100" size={20} />
         </button>
