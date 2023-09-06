@@ -1,16 +1,19 @@
 'use client'
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { Book } from '@prisma/client'
 
 import { api } from '@/lib/axios'
 import { formatDifferenceToToday } from '@/utils/date'
-import { useQuery } from 'react-query'
+import { useSignInModal } from '@/contexts/signIn'
+
 import { Box } from '../core/Box'
 import { StarRating } from '../core/StarRating'
-import { Book } from '@prisma/client'
-import Image from 'next/image'
 import { Link } from '../core/Link'
 import { LoadingBookRating } from './LoadingBookRating'
-import { useSignInModal } from '@/contexts/signIn'
-import { useSession } from 'next-auth/react'
+import { RatingEditBox } from './RatingEditBox'
 
 type BookRatingsProps = {
   book: Book
@@ -19,6 +22,8 @@ type BookRatingsProps = {
 export const BookRatings = ({ book }: BookRatingsProps) => {
   const { status } = useSession()
   const { openSignInModal } = useSignInModal()
+
+  const [isRating, setIsRating] = useState(false)
 
   const isAuthenticated = status === 'authenticated'
 
@@ -47,6 +52,8 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
     if (!isAuthenticated) {
       return openSignInModal()
     }
+
+    setIsRating(true)
   }
 
   return (
@@ -54,10 +61,16 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
       <header className="flex w-full justify-between px-4 pb-0 pt-2">
         <h6 className="text-gray-200">Avaliações</h6>
 
-        <Link href="#" onClick={handleRate}>
-          Avaliar
-        </Link>
+        {!isRating && (
+          <Link href="#" onClick={handleRate}>
+            Avaliar
+          </Link>
+        )}
       </header>
+
+      {isRating && (
+        <RatingEditBox onEnd={() => setIsRating(false)} bookId={book.id} />
+      )}
 
       {ratings?.map((rating) => (
         <Box key={rating.id} className="flex flex-col gap-8">

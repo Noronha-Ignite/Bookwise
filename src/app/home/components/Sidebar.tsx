@@ -43,10 +43,12 @@ export const Sidebar = () => {
 
       {isAuthenticated && user ? (
         <div className="flex w-full items-center justify-between">
-          <Avatar src={user.avatar_url ?? ''} alt={user.name} size={32} />
-          <span className="text-xs leading-base text-gray-200">
-            {getFirstName(user.name)}
-          </span>
+          <Avatar
+            src={user.avatar_url ?? ''}
+            alt={user.name}
+            size={32}
+            name={getFirstName(user.name)}
+          />
           <button
             className="flex items-center rounded-sm p-1 font-bold transition-colors hover:bg-hover-white"
             onClick={handleSignOut}
