@@ -8,13 +8,18 @@ import { StarRating } from '../core/StarRating'
 import { Book } from '@prisma/client'
 import Image from 'next/image'
 import { Link } from '../core/Link'
+import { LoadingBookRating } from './LoadingBookRating'
 
 type BookRatingsProps = {
   book: Book
 }
 
 export const BookRatings = ({ book }: BookRatingsProps) => {
-  const { data: ratings } = useQuery<RatingWithUser[]>(
+  const {
+    data: ratings,
+    isLoading,
+    isFetching,
+  } = useQuery<RatingWithUser[]>(
     [book.id, '@bookwise:fetch-book-ratings'],
     () =>
       api
@@ -26,6 +31,10 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
         .then((response) => response.data),
     { staleTime: 1000 * 60 * 30 }, // 30 min
   )
+
+  if (isLoading || isFetching) {
+    return <LoadingBookRating />
+  }
 
   return (
     <section className="flex h-40 flex-1 flex-col gap-4">
