@@ -10,7 +10,7 @@ export const GET = async (
     const category = searchParams.get('category')
     const query = searchParams.get('search')
 
-    const books = await prisma.book.findMany({
+    const booksRaw = await prisma.book.findMany({
       where: {
         categories: {
           some: {
@@ -25,9 +25,21 @@ export const GET = async (
       },
       include: {
         ratings: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
       },
       distinct: ['id'],
     })
+
+    const books: BookWithRatingAndCategories[] = booksRaw.map((book) => ({
+      ...book,
+      categories: book.categories.map(
+        (categoryOnBook) => categoryOnBook.category,
+      ),
+    }))
 
     return NextResponse.json({
       books,

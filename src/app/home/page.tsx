@@ -5,6 +5,8 @@ import { RatingCard } from '@/components/RatingCard'
 import { BookCard } from '@/components/BookCard'
 
 import { Header } from './components/Header'
+import { RouteNames } from './routes'
+import { Scrollable } from '@/components/core/Scrollable'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
@@ -27,8 +29,20 @@ export default async function Home() {
     },
     include: {
       ratings: true,
+      categories: {
+        include: {
+          category: true,
+        },
+      },
     },
   })
+
+  const books: BookWithRatingAndCategories[] = popularBooks.map((book) => ({
+    ...book,
+    categories: book.categories.map(
+      (categoryOnBook) => categoryOnBook.category,
+    ),
+  }))
 
   return (
     <>
@@ -37,24 +51,26 @@ export default async function Home() {
         <section className="flex flex-col gap-4">
           <h4 className="text-xs leading-base">Avaliações mais recentes</h4>
 
-          <div className="no-scrollbar flex h-[calc(100vh-202px)] flex-col gap-3 overflow-y-auto">
+          <Scrollable className="flex h-[calc(100vh-202px)] flex-col gap-3">
             {recentRatings.map((rating) => (
               <RatingCard key={rating.id} rating={rating} />
             ))}
-          </div>
+          </Scrollable>
         </section>
         <section className="flex flex-col gap-4">
           <header className="flex justify-between">
             <h4 className="text-xs leading-base">Livros populares</h4>
 
-            <Link rightIcon={CaretRight}>Ver todos</Link>
+            <Link href={RouteNames.Explore} rightIcon={CaretRight}>
+              Ver todos
+            </Link>
           </header>
 
-          <div className="no-scrollbar flex h-[calc(100vh-202px)] flex-col gap-3 overflow-y-auto">
-            {popularBooks.map((book) => (
+          <Scrollable className="flex h-[calc(100vh-202px)] flex-col gap-3">
+            {books.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}
-          </div>
+          </Scrollable>
         </section>
       </div>
     </>

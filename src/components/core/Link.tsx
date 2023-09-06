@@ -1,23 +1,26 @@
-import NextLink from 'next/link'
-import { Icon } from 'phosphor-react'
+import NextLink, { LinkProps } from 'next/link'
+
 import { PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type LinkProps = {
+import { Icon } from '@/components/core/Icons'
+
+type LinkComponentProps = {
   rightIcon?: Icon
   leftIcon?: Icon
-} & PropsWithChildren
+} & LinkProps
 
 export const Link = ({
   rightIcon: RightIcon,
   leftIcon: LeftIcon,
   children,
-}: LinkProps) => (
+  ...props
+}: PropsWithChildren<LinkComponentProps>) => (
   <NextLink
-    href="/home"
+    {...props}
     className={twMerge(
       'flex items-center gap-2 rounded-sm text-xs font-bold leading-base text-purple-100',
-      'hover:shadow-outline-purple hover:bg-hover-purple',
+      'hover:bg-hover-purple hover:shadow-outline-purple',
     )}
   >
     {LeftIcon && <LeftIcon size={16} />}

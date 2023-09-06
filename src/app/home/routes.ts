@@ -1,5 +1,5 @@
 import { usePathname } from 'next/navigation'
-import { Binoculars, ChartLineUp, IconProps } from 'phosphor-react'
+import { Binoculars, ChartLineUp, IconProps } from '@/components/core/Icons'
 
 export enum RouteNames {
   Home = '/home',

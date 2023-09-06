@@ -9,6 +9,7 @@ import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
 import { api } from '@/lib/axios'
 import { CategorySelectTab } from './components/CategorySelectTab'
+import { Scrollable } from '@/components/core/Scrollable'
 
 type FetchBooksQuery = {
   category?: string
@@ -16,7 +17,7 @@ type FetchBooksQuery = {
 }
 
 type FetchBooksResponse = {
-  books: BookWithRating[]
+  books: BookWithRatingAndCategories[]
 }
 
 const fetchBooks = async (query: FetchBooksQuery) => {
@@ -53,11 +54,11 @@ export default function Explore() {
         selectedCategory={selectedCategory}
       />
 
-      <div className="no-scrollbar mt-12 grid max-h-[calc(100vh-308px)] grid-cols-3 gap-5 overflow-y-auto pb-4">
+      <Scrollable className="mt-12 grid max-h-[calc(100vh-308px)] grid-cols-3 gap-5">
         {data?.books.map((book) => (
           <BookCard key={book.id} book={book} variant="big" />
         ))}
-      </div>
+      </Scrollable>
     </>
   )
 }

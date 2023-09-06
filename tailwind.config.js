@@ -16,6 +16,18 @@ module.exports = {
           'linear-gradient(0deg, rgba(42, 40, 121, 0.60) 0%, rgba(42, 40, 121, 0.60) 100%)',
       },
 
+      keyframes: {
+        'slide-in-from-right': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
+
+      animation: {
+        'slide-in-from-right':
+          'slide-in-from-right 350ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+
       fontWeight: {
         normal: '400',
         bold: '700',
@@ -77,6 +89,10 @@ module.exports = {
           700: '#181C2A',
           800: '#0E1116',
         },
+        black: {
+          a9: 'rgba(0, 0, 0, 0.447)',
+        },
+
         hover: {
           white: 'rgba(230, 232, 242, 0.04)',
           purple: 'rgba(131, 129, 217, 0.06)',

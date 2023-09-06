@@ -24,9 +24,23 @@ type User = {
   created_at: Date
 }
 
+type Category = {
+  id: string
+  name: string
+}
+
 type BookWithRating = {
   ratings: Rating[]
 } & Book
+
+type BookWithRatingAndCategories = {
+  ratings: Rating[]
+  categories: Category[]
+} & Book
+
+type RatingWithUser = {
+  user: User
+} & Rating
 
 type RatingWithUserAndBook = {
   user: User

@@ -1,4 +1,4 @@
-import { Star } from '@/components/Icons'
+import { Star } from './Icons'
 
 type StarRatingProps = {
   rate: number
