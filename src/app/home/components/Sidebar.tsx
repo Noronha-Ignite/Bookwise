@@ -2,14 +2,25 @@
 
 import Image from 'next/image'
 
-import { SignIn } from '@/components/core/Icons'
+import { SignIn, SignOut } from '@/components/core/Icons'
 import LogoSVG from '@/assets/logo.svg'
 
 import { SidebarItem } from './SidebarItem'
 import { routes, useGetCurrentRoute } from '../routes'
+import { signOut, useSession } from 'next-auth/react'
+import { Avatar } from '@/components/core/Avatar'
+import { getFirstName } from '@/utils/string'
 
 export const Sidebar = () => {
   const currentRoute = useGetCurrentRoute()
+  const { data, status } = useSession()
+
+  const isAuthenticated = status === 'authenticated'
+  const user = data?.user
+
+  const handleSignOut = async () => {
+    await signOut()
+  }
 
   return (
     <div className="flex h-full max-h-[calc(100vh-32px)] w-full flex-col items-center gap-16 rounded-lg bg-gray-700 px-12 py-10 shadow-primary-inner">
@@ -28,10 +39,25 @@ export const Sidebar = () => {
         ))}
       </nav>
 
-      <button className="flex items-center gap-3 rounded-sm px-2 py-1 font-bold transition-colors hover:bg-hover-white ">
-        Fazer login
-        <SignIn className="text-green-100" size={20} />
-      </button>
+      {isAuthenticated && user ? (
+        <div className="flex w-full items-center justify-between">
+          <Avatar src={user.avatar_url ?? ''} alt={user.name} size={32} />
+          <span className="text-xs leading-base text-gray-200">
+            {getFirstName(user.name)}
+          </span>
+          <button
+            className="flex items-center rounded-sm p-1 font-bold transition-colors hover:bg-hover-white"
+            onClick={handleSignOut}
+          >
+            <SignOut className="text-danger" size={20} />
+          </button>
+        </div>
+      ) : (
+        <button className="flex items-center gap-3 rounded-sm px-2 py-1 font-bold transition-colors hover:bg-hover-white">
+          Fazer login
+          <SignIn className="text-green-100" size={20} />
+        </button>
+      )}
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Box } from '../core/Box'
 import { formatDifferenceToToday } from '@/utils/date'
 import { StarRating } from '../core/StarRating'
+import { Avatar } from '../core/Avatar'
 
 type RatingCardProps = {
   rating: RatingWithUserAndBook
@@ -12,15 +13,7 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
   return (
     <Box className="flex flex-col gap-8">
       <header className="flex gap-4">
-        <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-gradient-vertical">
-          <Image
-            src={rating.user.avatar_url ?? ''}
-            alt={rating.user.name}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-          />
-        </div>
+        <Avatar src={rating.user.avatar_url ?? ''} alt={rating.user.name} />
 
         <div className="flex flex-1 flex-col justify-between">
           <h4>{rating.user.name}</h4>

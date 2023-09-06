@@ -96,6 +96,9 @@ module.exports = {
           700: '#181C2A',
           800: '#0E1116',
         },
+
+        danger: '#F75A68',
+
         black: {
           a9: 'rgba(0, 0, 0, 0.447)',
         },
