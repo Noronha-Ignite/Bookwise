@@ -9,7 +9,7 @@ import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
 import { api } from '@/lib/axios'
 import { CategorySelectTab } from './components/CategorySelectTab'
-import { Scrollable } from '@/components/core/Scrollable'
+import LoadingExplore from './loading'
 
 type FetchBooksQuery = {
   category?: string
@@ -34,14 +34,56 @@ export default function Explore() {
 
   const debouncedQuery = useDebounce(query, 650)
 
-  const { data } = useQuery(
+  const {
+    data,
+    isLoading: isLoadingBooks,
+    isFetching: isFetchingBooks,
+  } = useQuery(
     [selectedCategory, debouncedQuery, '@bookwise:books-explore-fetch'],
     () => fetchBooks({ category: selectedCategory, search: debouncedQuery }),
     {
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 60 * 24, // 1 day
+      staleTime: 1000 * 60 * 30, // 30 min
     },
   )
+
+  const {
+    data: categoriesFetched,
+    isLoading: isLoadingCategories,
+    isFetching: isFetchingCategories,
+    isSuccess: areCategoriesLoaded,
+  } = useQuery(
+    '@bookwise:books-explore-categories',
+    () => api.get<{ categories: Category[] }>('/categories'),
+    {
+      retry: false,
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 30, // 30 min
+    },
+  )
+
+  const categories = [
+    { label: 'Todos', value: '' },
+    ...(categoriesFetched?.data.categories ?? []).map((category) => ({
+      label: category.name,
+      value: category.name,
+    })),
+  ]
+
+  const isPageReady =
+    !isLoadingBooks &&
+    !isLoadingCategories &&
+    !isFetchingBooks &&
+    !isFetchingCategories
+
+  if (!isPageReady) {
+    return (
+      <LoadingExplore
+        categories={areCategoriesLoaded ? categories : undefined}
+        selectedCategory={areCategoriesLoaded ? selectedCategory : undefined}
+      />
+    )
+  }
 
   return (
     <>
@@ -50,15 +92,16 @@ export default function Explore() {
       </Header>
 
       <CategorySelectTab
+        categories={categories}
         onCategorySelect={setSelectedCategory}
         selectedCategory={selectedCategory}
       />
 
-      <Scrollable className="mt-12 grid max-h-[calc(100vh-308px)] grid-cols-3 gap-5">
+      <div className="mt-12 grid grid-cols-3 gap-5">
         {data?.books.map((book) => (
           <BookCard key={book.id} book={book} variant="big" />
         ))}
-      </Scrollable>
+      </div>
     </>
   )
 }

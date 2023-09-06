@@ -4,9 +4,8 @@ import { Link } from '@/components/core/Link'
 import { RatingCard } from '@/components/RatingCard'
 import { BookCard } from '@/components/BookCard'
 
-import { Header } from './components/Header'
-import { RouteNames } from './routes'
-import { Scrollable } from '@/components/core/Scrollable'
+import { Header } from '../components/Header'
+import { RouteNames } from '../routes'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
@@ -51,14 +50,14 @@ export default async function Home() {
         <section className="flex flex-col gap-4">
           <h4 className="text-xs leading-base">Avaliações mais recentes</h4>
 
-          <Scrollable className="flex h-[calc(100vh-202px)] flex-col gap-3">
+          <div className="flex flex-col gap-3">
             {recentRatings.map((rating) => (
               <RatingCard key={rating.id} rating={rating} />
             ))}
-          </Scrollable>
+          </div>
         </section>
         <section className="flex flex-col gap-4">
-          <header className="flex justify-between">
+          <header className="flex justify-between pr-2">
             <h4 className="text-xs leading-base">Livros populares</h4>
 
             <Link href={RouteNames.Explore} rightIcon={CaretRight}>
@@ -66,11 +65,11 @@ export default async function Home() {
             </Link>
           </header>
 
-          <Scrollable className="flex h-[calc(100vh-202px)] flex-col gap-3">
+          <div className="flex flex-col gap-3">
             {books.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}
-          </Scrollable>
+          </div>
         </section>
       </div>
     </>

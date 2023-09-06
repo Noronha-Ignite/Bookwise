@@ -1,41 +1,21 @@
-import { api } from '@/lib/axios'
-import { Category } from '@prisma/client'
-import { useQuery } from 'react-query'
 import { twMerge } from 'tailwind-merge'
-
-type CategorySelectTabProps = {
-  onCategorySelect: (category: string) => void
-  selectedCategory: string
-}
 
 type CategoryItem = {
   label: string
   value: string
 }
 
+type CategorySelectTabProps = {
+  categories: CategoryItem[]
+  onCategorySelect: (category: string) => void
+  selectedCategory: string
+}
+
 export const CategorySelectTab = ({
   onCategorySelect,
   selectedCategory,
+  categories,
 }: CategorySelectTabProps) => {
-  const { data: categoriesFetched } = useQuery(
-    '@bookwise:books-explore-categories',
-    () => api.get<{ categories: Category[] }>('/categories'),
-    {
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  )
-
-  const categories: CategoryItem[] = [
-    { label: 'Todos', value: '' },
-    ...(categoriesFetched?.data.categories ?? []).map<CategoryItem>(
-      (category) => ({
-        label: category.name,
-        value: category.name,
-      }),
-    ),
-  ]
-
   return (
     <div className="flex flex-wrap gap-3">
       {categories.map((category) => (

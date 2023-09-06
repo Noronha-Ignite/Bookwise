@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
-import { Box } from './core/Box'
+import { Box } from '../core/Box'
 import { formatDifferenceToToday } from '@/utils/date'
-import { StarRating } from './core/StarRating'
+import { StarRating } from '../core/StarRating'
 
 type RatingCardProps = {
   rating: RatingWithUserAndBook

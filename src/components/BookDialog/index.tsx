@@ -18,7 +18,7 @@ export const BookDialog = ({
 }: PropsWithChildren<BookDialogProps>) => {
   return (
     <Dialog.Root>
-      <Dialog.Trigger>{children}</Dialog.Trigger>
+      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 overflow-x-hidden bg-black-a9">
           <Dialog.Content className="absolute right-0 top-0 h-full max-w-2xl animate-slide-in-from-right bg-gray-800">

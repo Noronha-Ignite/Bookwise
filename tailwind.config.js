@@ -14,6 +14,8 @@ module.exports = {
           'linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)',
         'gradient-hero':
           'linear-gradient(0deg, rgba(42, 40, 121, 0.60) 0%, rgba(42, 40, 121, 0.60) 100%)',
+        'gradient-shimmer':
+          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0))',
       },
 
       keyframes: {
@@ -21,11 +23,16 @@ module.exports = {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
       },
 
       animation: {
         'slide-in-from-right':
           'slide-in-from-right 350ms cubic-bezier(0.16, 1, 0.3, 1)',
+        shimmer: 'shimmer 2s infinite',
       },
 
       fontWeight: {

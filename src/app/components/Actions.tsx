@@ -4,6 +4,7 @@ import Link from 'next/link'
 import GoogleSVG from '@/assets/google.svg'
 import GithubSVG from '@/assets/github.svg'
 import RocketSVG from '@/assets/rocket.svg'
+import { RouteNames } from '../home/routes'
 
 export const Actions = () => {
   return (
@@ -34,7 +35,7 @@ export const Actions = () => {
       </button>
       <Link
         prefetch
-        href="home"
+        href={RouteNames.Home}
         className="flex w-full items-center gap-5 rounded-md bg-gray-600 px-6 py-5 transition-colors hover:bg-gray-500 xs:gap-3"
       >
         <Image
