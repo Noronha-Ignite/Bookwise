@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -5,11 +7,25 @@ import GoogleSVG from '@/assets/google.svg'
 import GithubSVG from '@/assets/github.svg'
 import RocketSVG from '@/assets/rocket.svg'
 import { RouteNames } from '../home/routes'
+import { signIn } from 'next-auth/react'
 
 export const Actions = () => {
+  const handleConnect = async (provider: 'google' | 'github') => {
+    try {
+      await signIn(provider, {
+        callbackUrl: RouteNames.Home,
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className="flex w-full flex-col gap-4">
-      <button className="flex w-full items-center gap-5 rounded-md bg-gray-600 px-6 py-5 transition-colors hover:bg-gray-500 xs:gap-3">
+      <button
+        onClick={() => handleConnect('google')}
+        className="flex w-full items-center gap-5 rounded-md bg-gray-600 px-6 py-5 transition-colors hover:bg-gray-500 xs:gap-3"
+      >
         <Image
           src={GoogleSVG}
           alt="Google"
@@ -21,7 +37,10 @@ export const Actions = () => {
           Entrar com Google
         </span>
       </button>
-      <button className="flex w-full items-center gap-5 rounded-md bg-gray-600 px-6 py-5 transition-colors hover:bg-gray-500 xs:gap-3">
+      <button
+        onClick={() => handleConnect('github')}
+        className="flex w-full items-center gap-5 rounded-md bg-gray-600 px-6 py-5 transition-colors hover:bg-gray-500 xs:gap-3"
+      >
         <Image
           src={GithubSVG}
           alt="Github"

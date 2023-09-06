@@ -6,7 +6,10 @@ import { Suspense } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 import dayjs from 'dayjs'
-import { QueryProvider } from '@/lib/queryClient'
+import { QueryProvider } from '@/contexts/queryClient'
+import { AuthSessionProvider } from '@/contexts/session'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth/authOptions'
 
 dayjs.locale('pt-br')
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
@@ -15,11 +18,13 @@ export const metadata = {
   title: 'Bookwise',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en">
       <body
@@ -28,9 +33,11 @@ export default function RootLayout({
           nunito.className,
         )}
       >
-        <QueryProvider>
-          <Suspense>{children}</Suspense>
-        </QueryProvider>
+        <AuthSessionProvider session={session}>
+          <QueryProvider>
+            <Suspense>{children}</Suspense>
+          </QueryProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   )

@@ -10,6 +10,7 @@ datasource db {
 model User {
   id         String   @id @default(uuid())
   name       String
+  email      String   @unique
   avatar_url String?
   created_at DateTime @default(now())
 
@@ -75,12 +76,12 @@ model Account {
   type                String
   provider            String
   provider_account_id String
-  refresh_token       String?
-  access_token        String?
+  refresh_token       String? @db.LongText
+  access_token        String? @db.LongText
   expires_at          Int?
   token_type          String?
   scope               String?
-  id_token            String?
+  id_token            String? @db.LongText
   session_state       String?
   user                User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
