@@ -17,6 +17,7 @@ export const prismaAdapter: Adapter = {
       id: createdUser.id,
       name: createdUser.name,
       avatar_url: createdUser.avatar_url,
+      created_at: createdUser.created_at,
     }
   },
 
@@ -36,6 +37,7 @@ export const prismaAdapter: Adapter = {
       name: user.name,
       email: user.email,
       avatar_url: user.avatar_url,
+      created_at: user.created_at,
       emailVerified: null,
     }
   },
@@ -56,6 +58,7 @@ export const prismaAdapter: Adapter = {
       name: user.name,
       email: user.email,
       avatar_url: user.avatar_url,
+      created_at: user.created_at,
       emailVerified: null,
     }
   },
@@ -84,6 +87,7 @@ export const prismaAdapter: Adapter = {
       name: user.name,
       email: user.email,
       avatar_url: user.avatar_url,
+      created_at: user.created_at,
       emailVerified: null,
     }
   },
@@ -105,6 +109,7 @@ export const prismaAdapter: Adapter = {
       name: updatedUser.name,
       email: updatedUser.email,
       avatar_url: updatedUser.avatar_url,
+      created_at: updatedUser.created_at,
       emailVerified: null,
     }
   },
@@ -189,6 +194,7 @@ export const prismaAdapter: Adapter = {
         name: user.name,
         email: user.email,
         avatar_url: user.avatar_url,
+        created_at: user.created_at,
         emailVerified: null,
       },
     }
