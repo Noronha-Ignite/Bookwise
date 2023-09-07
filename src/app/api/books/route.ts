@@ -1,12 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const GET = async (
-  req: NextRequest,
-): Promise<NextResponse<{ books: BookWithRating[] }>> => {
+export const GET = async (req: NextRequest) => {
   try {
-    console.log(req)
-
     const searchParams = req.nextUrl.searchParams
 
     const category = searchParams.get('category') || undefined
@@ -58,6 +54,10 @@ export const GET = async (
   } catch (err) {
     console.log(err)
 
-    return NextResponse.json({ books: [] })
+    return NextResponse.json({
+      error: true,
+      message: 'Internal Server Error',
+      err,
+    })
   }
 }
