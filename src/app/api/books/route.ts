@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async (req: NextRequest) => {
   try {
     const searchParams = req.nextUrl.searchParams
@@ -54,10 +56,15 @@ export const GET = async (req: NextRequest) => {
   } catch (err) {
     console.log(err)
 
-    return NextResponse.json({
-      error: true,
-      message: 'Internal Server Error',
-      err,
-    })
+    return NextResponse.json(
+      {
+        error: true,
+        message: 'Internal Server Error',
+        err,
+      },
+      {
+        status: 500,
+      },
+    )
   }
 }

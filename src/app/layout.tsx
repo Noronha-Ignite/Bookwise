@@ -13,8 +13,6 @@ import { SignInModalProvider } from '@/contexts/signIn'
 
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
 
-export const dynamic = 'force-dynamic'
-
 export const metadata = {
   title: 'Bookwise',
 }
