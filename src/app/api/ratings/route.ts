@@ -17,22 +17,31 @@ const createRatingSchema = z.object({
 
 export const GET = async (
   req: Request,
-): Promise<NextResponse<RatingWithUser[]>> => {
+): Promise<NextResponse<RatingWithUserAndBook[]>> => {
   try {
     const { searchParams } = new URL(req.url)
 
-    const bookId = searchParams.get('book')
+    const bookId = searchParams.get('book') || undefined
+    const userId = searchParams.get('user') || undefined
+    const query = searchParams.get('query') || ''
 
     const ratings = await prisma.rating.findMany({
       where: {
-        book_id: bookId ?? undefined,
+        OR: [{ book_id: bookId }, { user_id: userId }],
+        book: {
+          name: {
+            contains: query,
+          },
+        },
       },
       include: {
         user: true,
+        book: true,
       },
       orderBy: {
         created_at: 'desc',
       },
+      take: 10,
     })
 
     return NextResponse.json(ratings)

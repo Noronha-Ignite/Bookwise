@@ -6,6 +6,7 @@ declare module 'next-auth' {
     name: string
     email: string
     avatar_url: string | null
+    created_at: Date
   }
 
   type Session = {

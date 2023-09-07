@@ -1,13 +1,20 @@
 import { InputHTMLAttributes } from 'react'
 import { MagnifyingGlass } from './Icons'
 
-export const SearchInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
+type SearchInputProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'onChange'
+> & {
+  onChange: (text: string) => void
+}
+
+export const SearchInput = ({ onChange, ...props }: SearchInputProps) => {
   return (
     <label className="flex cursor-text items-center justify-between rounded-sm border border-gray-500 px-5 py-3 focus-within:border-green-200">
       <input
         type="text"
-        placeholder="Buscar livro ou autor"
         className="flex flex-1 bg-transparent outline-none"
+        onChange={(e) => onChange(e.target.value)}
         {...props}
       />
 

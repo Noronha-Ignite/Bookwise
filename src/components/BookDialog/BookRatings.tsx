@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
-import { Book } from '@prisma/client'
 
 import { api } from '@/lib/axios'
 import { formatDifferenceToToday } from '@/utils/date'
@@ -14,12 +13,13 @@ import { StarRating } from '../core/StarRating'
 import { Link } from '../core/Link'
 import { LoadingBookRating } from './LoadingBookRating'
 import { RatingEditBox } from './RatingEditBox'
+import { Avatar } from '../core/Avatar'
 
 type BookRatingsProps = {
-  book: Book
+  bookId: string
 }
 
-export const BookRatings = ({ book }: BookRatingsProps) => {
+export const BookRatings = ({ bookId }: BookRatingsProps) => {
   const { status } = useSession()
   const { openSignInModal } = useSignInModal()
 
@@ -32,12 +32,12 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
     isLoading,
     isFetching,
   } = useQuery<RatingWithUser[]>(
-    [book.id, '@bookwise:fetch-book-ratings'],
+    [bookId, '@bookwise:fetch-book-ratings'],
     () =>
       api
         .get<RatingWithUser[]>('/ratings', {
           params: {
-            book: book.id,
+            book: bookId,
           },
         })
         .then((response) => response.data),
@@ -69,21 +69,17 @@ export const BookRatings = ({ book }: BookRatingsProps) => {
       </header>
 
       {isRating && (
-        <RatingEditBox onEnd={() => setIsRating(false)} bookId={book.id} />
+        <RatingEditBox onEnd={() => setIsRating(false)} bookId={bookId} />
       )}
 
       {ratings?.map((rating) => (
         <Box key={rating.id} className="flex flex-col gap-8">
           <header className="flex gap-4">
-            <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-gradient-vertical">
-              <Image
-                src={rating.user.avatar_url ?? ''}
-                alt={rating.user.name}
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-full object-cover"
-              />
-            </div>
+            <Avatar
+              src={rating.user.avatar_url ?? ''}
+              alt={rating.user.name}
+              user={rating.user}
+            />
 
             <div className="flex flex-1 flex-col justify-between">
               <h4>{rating.user.name}</h4>

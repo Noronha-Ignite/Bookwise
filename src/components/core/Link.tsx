@@ -8,12 +8,14 @@ import { Icon } from '@/components/core/Icons'
 type LinkComponentProps = {
   rightIcon?: Icon
   leftIcon?: Icon
+  variant?: 'colored' | 'white'
 } & LinkProps
 
 export const Link = ({
   rightIcon: RightIcon,
   leftIcon: LeftIcon,
   children,
+  variant = 'colored',
   ...props
 }: PropsWithChildren<LinkComponentProps>) => (
   <NextLink
@@ -21,6 +23,7 @@ export const Link = ({
     className={twMerge(
       'flex items-center gap-2 rounded-sm text-xs font-bold leading-base text-purple-100',
       'hover:bg-hover-purple hover:shadow-outline-purple',
+      variant === 'white' && 'text-gray-200',
     )}
   >
     {LeftIcon && <LeftIcon size={16} />}

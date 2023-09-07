@@ -46,3 +46,15 @@ type RatingWithUserAndBook = {
   user: User
   book: Book
 } & Rating
+
+type RatingWithUserAndBook = {
+  user: User
+  book: Book
+} & Rating
+
+type UserDetails = {
+  totalRatedBooks: number
+  totalReadPages: number
+  totalAuthorsRead: number
+  mostReadCategory: string
+}

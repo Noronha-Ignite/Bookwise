@@ -40,7 +40,11 @@ export default function Explore() {
     isFetching: isFetchingBooks,
   } = useQuery(
     [selectedCategory, debouncedQuery, '@bookwise:books-explore-fetch'],
-    () => fetchBooks({ category: selectedCategory, search: debouncedQuery }),
+    () =>
+      fetchBooks({
+        category: selectedCategory || undefined,
+        search: debouncedQuery || undefined,
+      }),
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 30, // 30 min
@@ -88,7 +92,11 @@ export default function Explore() {
   return (
     <>
       <Header>
-        <SearchInput onChange={(e) => setQuery(e.target.value)} value={query} />
+        <SearchInput
+          placeholder="Buscar livro ou autor"
+          onChange={setQuery}
+          value={query}
+        />
       </Header>
 
       <CategorySelectTab

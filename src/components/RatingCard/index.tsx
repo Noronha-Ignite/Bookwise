@@ -13,7 +13,11 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
   return (
     <Box className="flex flex-col gap-8">
       <header className="flex gap-4">
-        <Avatar src={rating.user.avatar_url ?? ''} alt={rating.user.name} />
+        <Avatar
+          src={rating.user.avatar_url ?? ''}
+          alt={rating.user.name}
+          user={rating.user}
+        />
 
         <div className="flex flex-1 flex-col justify-between">
           <h4>{rating.user.name}</h4>

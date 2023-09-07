@@ -30,7 +30,7 @@ export const BookDialog = ({
               <BookDetails book={book} />
 
               <Scrollable>
-                <BookRatings book={book} />
+                <BookRatings bookId={book.id} />
               </Scrollable>
             </div>
           </Dialog.Content>

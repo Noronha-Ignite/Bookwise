@@ -29,16 +29,18 @@ export const Sidebar = () => {
       <Image src={LogoSVG} alt="Bookwise" width={128} height={32} priority />
 
       <nav className="flex w-full flex-1 flex-col justify-start gap-6">
-        {Object.values(routes).map(({ path, icon, label }) => (
-          <SidebarItem
-            key={path}
-            href={path}
-            active={path === currentRoute.path}
-            icon={icon}
-          >
-            {label}
-          </SidebarItem>
-        ))}
+        {Object.values(routes)
+          .filter((route) => isAuthenticated || !route.requireAuth)
+          .map(({ path, icon, label }) => (
+            <SidebarItem
+              key={path}
+              href={path}
+              active={path === currentRoute?.path}
+              icon={icon}
+            >
+              {label}
+            </SidebarItem>
+          ))}
       </nav>
 
       {isAuthenticated && user ? (
