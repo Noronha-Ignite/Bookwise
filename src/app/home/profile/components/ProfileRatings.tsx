@@ -1,12 +1,15 @@
 'use client'
 
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+
 import { SearchInput } from '@/components/core/SearchInput'
 import useDebounce from '@/hooks/useDebounce'
 import { api } from '@/lib/axios'
-import { useState } from 'react'
-import { useQuery } from 'react-query'
 import { ProfileRatingCard } from './ProfileRatingCard'
 import { ProfileRatingsLoading } from './ProfileRatingsLoading'
+import { NoteBlank } from '@/components/core/Icons'
+import { NoItemFound } from '@/components/core/NoItemFound'
 
 type ProfileRatingsProps = {
   user: User
@@ -47,6 +50,9 @@ export const ProfileRatings = ({ user }: ProfileRatingsProps) => {
       />
 
       <div className="flex flex-col gap-6">
+        {!ratings.length && (
+          <NoItemFound icon={NoteBlank} title="Nenhuma avaliação encontrada." />
+        )}
         {ratings.map((rating) => (
           <ProfileRatingCard key={rating.id} rating={rating} />
         ))}

@@ -1,11 +1,12 @@
 import { prisma } from '@/lib/prisma'
-import { CaretRight } from '@/components/core/Icons'
+import { UserList, CaretRight } from '@/components/core/Icons'
 import { Link } from '@/components/core/Link'
 import { RatingCard } from '@/components/RatingCard'
 import { BookCard } from '@/components/BookCard'
 
 import { Header } from '../components/Header'
 import { RouteNames } from '../routes'
+import { NoItemFound } from '@/components/core/NoItemFound'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
@@ -51,6 +52,14 @@ export default async function Home() {
           <h4 className="text-xs leading-base">Avaliações mais recentes</h4>
 
           <div className="flex flex-col gap-3">
+            {!recentRatings.length && (
+              <NoItemFound
+                icon={UserList}
+                title="Nenhuma avaliação encontrada."
+                subtitle="Seja o primeiro! :)"
+              />
+            )}
+
             {recentRatings.map((rating) => (
               <RatingCard key={rating.id} rating={rating} />
             ))}

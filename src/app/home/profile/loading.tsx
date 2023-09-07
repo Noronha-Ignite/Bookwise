@@ -19,7 +19,7 @@ export default function LoadingProfile() {
 
           <div
             className={twMerge(
-              'py-13 relative flex flex-col gap-10',
+              'relative flex flex-col gap-10 py-13',
               'before:absolute before:left-1/2 before:top-0 before:h-1 before:w-8 before:-translate-x-1/2 before:rounded-full before:bg-gradient-horizontal',
             )}
           >

@@ -5,11 +5,13 @@ import { useState } from 'react'
 
 import { SearchInput } from '@/components/core/SearchInput'
 import { BookCard } from '@/components/BookCard'
+import { Books } from '@/components/core/Icons'
 import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
 import { api } from '@/lib/axios'
 import { CategorySelectTab } from './components/CategorySelectTab'
 import LoadingExplore from './loading'
+import { NoItemFound } from '@/components/core/NoItemFound'
 
 type FetchBooksQuery = {
   category?: string
@@ -78,7 +80,9 @@ export default function Explore() {
     !isLoadingBooks &&
     !isLoadingCategories &&
     !isFetchingBooks &&
-    !isFetchingCategories
+    !isFetchingCategories &&
+    !!categories.length &&
+    !!data?.books
 
   if (!isPageReady) {
     return (
@@ -105,6 +109,13 @@ export default function Explore() {
         selectedCategory={selectedCategory}
       />
 
+      {!data?.books.length && (
+        <NoItemFound
+          icon={Books}
+          title="Nenhuma livro encontrado."
+          subtitle="Verifique o filtro acima"
+        />
+      )}
       <div className="mt-12 grid grid-cols-3 gap-5">
         {data?.books.map((book) => (
           <BookCard key={book.id} book={book} variant="big" />
