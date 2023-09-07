@@ -49,8 +49,8 @@ model CategoriesOnBooks {
   book_id    String
   categoryId String
 
-  book     Book     @relation(fields: [book_id], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
+  book     Book     @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([book_id, categoryId])
 }
@@ -61,10 +61,10 @@ model Rating {
   description String   @db.LongText
   created_at  DateTime @default(now())
 
-  book    Book   @relation(fields: [book_id], references: [id])
+  book    Book   @relation(fields: [book_id], references: [id], onDelete: Cascade)
   book_id String
 
-  user    User   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String
 
   @@map("ratings")
