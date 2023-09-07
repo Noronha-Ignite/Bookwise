@@ -7,7 +7,6 @@ import { BookCard } from '@/components/BookCard'
 import { Header } from '../components/Header'
 import { RouteNames } from '../routes'
 import { NoItemFound } from '@/components/core/NoItemFound'
-import LoadingRecentRatings from './loading'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({

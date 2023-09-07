@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "NODE_OPTIONS='--inspect' dotenv -e .env.local -- next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev"
+    "lint": "next lint --fix",
+    "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev",
+    "prisma:studio": "dotenv -e .env.local -- npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.2.0",

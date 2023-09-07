@@ -19,12 +19,26 @@ export const authOptions: AuthOptions = {
         },
       },
 
-      profile(profile: GoogleProfile) {
-        return {
+      async profile(profile: GoogleProfile) {
+        const user = await prismaAdapter.getUserByEmail?.(profile.email)
+
+        const data = {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           avatar_url: profile.picture,
+        }
+
+        if (!user) {
+          return {
+            ...data,
+            created_at: new Date(),
+          }
+        }
+
+        return {
+          ...data,
+          created_at: user.created_at,
         }
       },
     }),
@@ -34,12 +48,27 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GITHUB_SECRET ?? '',
 
       allowDangerousEmailAccountLinking: true,
-      profile(profile: GithubProfile) {
-        return {
+
+      async profile(profile: GithubProfile) {
+        const user = await prismaAdapter.getUserByEmail?.(profile.email ?? '')
+
+        const data = {
           id: String(profile.id),
           avatar_url: profile.avatar_url,
           email: profile.email ?? '',
           name: profile.name ?? '',
+        }
+
+        if (!user) {
+          return {
+            ...data,
+            created_at: new Date(),
+          }
+        }
+
+        return {
+          ...data,
+          created_at: user.created_at,
         }
       },
     }),
