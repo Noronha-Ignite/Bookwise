@@ -1,11 +1,13 @@
 import { prisma } from '@/lib/prisma'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const GET = async (
-  req: Request,
+  req: NextRequest,
 ): Promise<NextResponse<{ books: BookWithRating[] }>> => {
   try {
-    const { searchParams } = new URL(req.url)
+    console.log(req)
+
+    const searchParams = req.nextUrl.searchParams
 
     const category = searchParams.get('category') || undefined
     const query = searchParams.get('search') || ''

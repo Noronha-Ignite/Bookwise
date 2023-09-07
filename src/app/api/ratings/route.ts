@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import console from 'console'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import * as z from 'zod'
 
 const createRatingSchema = z.object({
@@ -16,10 +16,10 @@ const createRatingSchema = z.object({
 })
 
 export const GET = async (
-  req: Request,
+  req: NextRequest,
 ): Promise<NextResponse<RatingWithUserAndBook[]>> => {
   try {
-    const { searchParams } = new URL(req.url)
+    const searchParams = req.nextUrl.searchParams
 
     const bookId = searchParams.get('book') || undefined
     const userId = searchParams.get('user') || undefined
@@ -52,9 +52,9 @@ export const GET = async (
   }
 }
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
   try {
-    const { searchParams } = new URL(req.url)
+    const searchParams = req.nextUrl.searchParams
 
     const bookId = searchParams.get('book')
     const userId = searchParams.get('user')
