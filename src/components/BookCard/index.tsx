@@ -21,6 +21,7 @@ export const BookCard = ({ book, variant = 'normal' }: BookCardProps) => {
             width={variant === 'normal' ? 64 : 108}
             height={variant === 'normal' ? 94 : 152}
             className="h-full object-cover"
+            priority
           />
 
           <div className="flex flex-1 flex-col justify-between">

@@ -88,7 +88,7 @@ export default function Explore() {
   return (
     <>
       <Header>
-        <SearchInput onChange={(e) => setQuery(e.target.value)} />
+        <SearchInput onChange={(e) => setQuery(e.target.value)} value={query} />
       </Header>
 
       <CategorySelectTab
