@@ -54,6 +54,8 @@ model CategoriesOnBooks {
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([book_id, categoryId])
+  @@index([book_id])
+  @@index([categoryId])
 }
 
 model Rating {
@@ -68,6 +70,8 @@ model Rating {
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String
 
+  @@index([user_id])
+  @@index([book_id])
   @@map("ratings")
 }
 
@@ -87,6 +91,7 @@ model Account {
   user                User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([provider, provider_account_id])
+  @@index([user_id])
   @@map("accounts")
 }
 
@@ -97,5 +102,6 @@ model Session {
   expires       DateTime
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id])
   @@map("sessions")
 }
