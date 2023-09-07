@@ -6,7 +6,7 @@ export default function LoadingRecentRatings() {
   return (
     <>
       <Header />
-      <div className="grid grid-cols-[2fr,1fr] gap-16">
+      <div className="grid grid-cols-1 gap-16 lg:grid-cols-[2fr,1fr]">
         <section className="flex flex-col gap-4">
           <h4 className="text-xs leading-base">Avaliações mais recentes</h4>
 
@@ -16,7 +16,7 @@ export default function LoadingRecentRatings() {
             ))}
           </div>
         </section>
-        <section className="flex flex-col gap-4">
+        <section className="hidden flex-col gap-4 lg:flex">
           <header className="flex justify-between">
             <h4 className="text-xs leading-base">Livros populares</h4>
           </header>

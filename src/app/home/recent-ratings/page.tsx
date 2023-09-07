@@ -7,6 +7,7 @@ import { BookCard } from '@/components/BookCard'
 import { Header } from '../components/Header'
 import { RouteNames } from '../routes'
 import { NoItemFound } from '@/components/core/NoItemFound'
+import LoadingRecentRatings from './loading'
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
@@ -47,7 +48,7 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <div className="grid grid-cols-[2fr,1fr] gap-16">
+      <div className="grid grid-cols-1 gap-16 lg:grid-cols-[2fr,1fr]">
         <section className="flex flex-col gap-4">
           <h4 className="text-xs leading-base">Avaliações mais recentes</h4>
 
@@ -65,7 +66,7 @@ export default async function Home() {
             ))}
           </div>
         </section>
-        <section className="flex flex-col gap-4">
+        <section className="hidden flex-col gap-4 lg:flex">
           <header className="flex justify-between pr-2">
             <h4 className="text-xs leading-base">Livros populares</h4>
 

@@ -23,6 +23,10 @@ module.exports = {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        'slide-in-from-left': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
 
         shimmer: {
           '100%': { transform: 'translateX(100%)' },
@@ -32,6 +36,8 @@ module.exports = {
       animation: {
         'slide-in-from-right':
           'slide-in-from-right 350ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'slide-in-from-left':
+          'slide-in-from-left 350ms cubic-bezier(0.16, 1, 0.3, 1)',
         shimmer: 'shimmer 2s infinite',
       },
 
@@ -122,12 +128,12 @@ module.exports = {
       },
     },
     screens: {
-      xs: { max: '360px' },
-      sm: { max: '640px' },
-      md: { max: '768px' },
-      lg: { max: '1024px' },
-      xl: { max: '1280px' },
-      '2xl': { max: '1536px' },
+      xs: '360px',
+      sm: '678px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
   },
   plugins: [],

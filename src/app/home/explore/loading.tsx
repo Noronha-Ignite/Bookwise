@@ -41,7 +41,7 @@ export default function LoadingExplore({
         </div>
       )}
 
-      <div className="mt-12 grid flex-1 grid-cols-3 gap-5">
+      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 16 }).map((_, index) => (
           <LoadingBookCard key={index} variant="big" />
         ))}

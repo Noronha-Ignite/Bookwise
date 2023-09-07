@@ -36,6 +36,7 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
           alt={rating.book.name}
           width={108}
           height={152}
+          className="h-fit"
         />
 
         <div className="flex flex-1 flex-col gap-5">

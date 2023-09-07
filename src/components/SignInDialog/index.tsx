@@ -26,7 +26,7 @@ export const SignInDialog = ({
   const ref = useRef(null)
 
   if (session.status === 'authenticated') {
-    return children
+    return <>{children}</>
   }
 
   const handleSignIn = async (provider: 'google' | 'github') => {
@@ -44,13 +44,13 @@ export const SignInDialog = ({
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bottom-0 left-0 right-0 top-0 z-20 bg-black-a9" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-            <Box className="relative px-18 py-14">
+            <Box className="relative min-w-[380px] px-18 py-14">
               <Dialog.Close className="absolute right-4 top-4 text-gray-400">
                 <X size={24} />
               </Dialog.Close>
 
               <div className="flex flex-1 flex-col gap-10">
-                <h4 className="px-12 text-sm font-bold leading-short text-gray-200">
+                <h4 className="px-12 text-center text-xs font-bold leading-short text-gray-200 sm:text-sm">
                   Faça login para deixar sua avaliação
                 </h4>
 
@@ -61,9 +61,8 @@ export const SignInDialog = ({
                       alt="Google"
                       width={32}
                       height={32}
-                      className="xs:h-6 xs:w-6"
                     />
-                    <span className="text-md font-bold leading-base">
+                    <span className="text-xs font-bold leading-base sm:text-md">
                       Entrar com Google
                     </span>
                   </Button>
@@ -73,9 +72,8 @@ export const SignInDialog = ({
                       alt="Github"
                       width={32}
                       height={32}
-                      className="xs:h-6 xs:w-6"
                     />
-                    <span className="text-md font-bold leading-base">
+                    <span className="text-xs font-bold leading-base sm:text-md">
                       Entrar com GitHub
                     </span>
                   </Button>

@@ -18,7 +18,7 @@ type ProfileInfoProps = {
 
 export const ProfileInfo = ({ user, details }: ProfileInfoProps) => {
   return (
-    <section className="flex h-fit flex-col gap-10 border-l border-gray-700">
+    <section className="flex h-fit flex-col gap-10 border-gray-700 md:border-l">
       <header className="flex flex-col items-center">
         <Avatar src={user.avatar_url ?? ''} alt={user.name} size={72} />
         <h3 className="mt-5 text-lg font-bold leading-short">
@@ -31,7 +31,7 @@ export const ProfileInfo = ({ user, details }: ProfileInfoProps) => {
 
       <div
         className={twMerge(
-          'py-13 relative flex flex-col gap-10 px-14',
+          'relative flex flex-col gap-10 px-14 py-13',
           'before:absolute before:left-1/2 before:top-0 before:h-1 before:w-8 before:-translate-x-1/2 before:rounded-full before:bg-gradient-horizontal',
         )}
       >

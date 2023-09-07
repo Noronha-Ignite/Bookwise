@@ -3,8 +3,10 @@ import { Sidebar } from './components/Sidebar'
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (
-    <div className="grid h-screen max-h-screen grid-cols-[240px,1fr] justify-items-center gap-4 p-4">
-      <Sidebar />
+    <div className="grid h-screen max-h-screen grid-cols-1 justify-items-center gap-4 px-16 xl:grid-cols-[240px,1fr] xl:p-4">
+      <div className="hidden xl:block">
+        <Sidebar />
+      </div>
 
       <main className="no-scrollbar max-h-screen w-full max-w-5xl overflow-auto">
         {children}
