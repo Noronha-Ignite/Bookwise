@@ -3,7 +3,7 @@ import Image from 'next/image'
 import LogoSVG from '@/assets/logo.svg'
 
 export const Hero = () => (
-  <div className="relative h-full overflow-hidden rounded-md bg-gradient-hero md:hidden">
+  <div className="relative hidden h-full overflow-hidden rounded-md bg-gradient-hero md:block">
     <Image
       src={'/images/woman-reading.png'}
       alt="Mulher lendo"

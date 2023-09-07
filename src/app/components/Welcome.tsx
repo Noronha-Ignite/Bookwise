@@ -5,7 +5,7 @@ import LogoSVG from '@/assets/logo.svg'
 import { Actions } from './Actions'
 
 export const Welcome = () => (
-  <div className="flex flex-1 flex-col items-center justify-center p-8 pr-4 md:justify-normal">
+  <div className="flex flex-1 flex-col items-center justify-normal p-8 pr-4 md:justify-center">
     <div className="flex w-[min(100%,372px)] flex-col gap-10">
       <Image
         src={LogoSVG}
