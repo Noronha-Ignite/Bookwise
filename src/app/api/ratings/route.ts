@@ -7,7 +7,7 @@ const createRatingSchema = z.object({
   rate: z
     .number({ required_error: 'Campo "rate" é obrigatório' })
     .max(5, { message: 'Valor máximo: 5' })
-    .max(0, { message: 'Valor mínimo: 0' }),
+    .min(0, { message: 'Valor mínimo: 0' }),
 
   description: z
     .string({ required_error: 'Campo "description" é obrigatório' })
