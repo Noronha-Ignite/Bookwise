@@ -100,6 +100,7 @@ export default function Explore() {
           placeholder="Buscar livro ou autor"
           onChange={setQuery}
           value={query}
+          autoFocus
         />
       </Header>
 
