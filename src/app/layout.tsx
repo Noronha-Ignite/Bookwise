@@ -30,7 +30,7 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={twMerge(
-          'min-w-[360px] bg-gray-800 text-gray-100',
+          'min-w-[290px] bg-gray-800 text-gray-100',
           nunito.className,
         )}
       >

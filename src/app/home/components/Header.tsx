@@ -15,7 +15,7 @@ export const Header = ({ children }: PropsWithChildren) => {
     <div className={twMerge(marginToContent, 'relative xl:mb-4')}>
       <header
         className={twMerge(
-          'fixed left-0 top-0 flex w-full items-center justify-center bg-gray-800 px-16 py-7',
+          'fixed left-0 top-0 flex w-full items-center justify-center bg-gray-800 px-4 py-7 xs:px-16',
           'xl:static xl:mx-0 xl:translate-x-0 xl:px-0 xl:py-4',
         )}
       >
