@@ -4,18 +4,19 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { Nunito } from 'next/font/google'
 import { Suspense } from 'react'
-
+import { ToastContainer } from 'react-toastify'
+import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
+import { getServerSession } from 'next-auth'
+
 import { QueryProvider } from '@/contexts/queryClient'
 import { AuthSessionProvider } from '@/contexts/session'
-import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth/authOptions'
 import { SignInModalProvider } from '@/contexts/signIn'
-import { ToastContainer } from 'react-toastify'
 
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Bookwise',
 }
 

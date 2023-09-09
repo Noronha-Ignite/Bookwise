@@ -1,5 +1,13 @@
 import { PropsWithChildren } from 'react'
 import { Sidebar } from './components/Sidebar'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: {
+    default: 'BookWise',
+    template: '%s | BookWise',
+  },
+}
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (

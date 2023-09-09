@@ -7,6 +7,11 @@ import { BookCard } from '@/components/cards/BookCard'
 import { Header } from '../components/Header'
 import { RouteNames } from '../routes'
 import { NoItemFound } from '@/components/core/NoItemFound'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Início',
+}
 
 export default async function Home() {
   const recentRatings = await prisma.rating.findMany({
