@@ -5,11 +5,14 @@ import { twMerge } from 'tailwind-merge'
 import { CategorySelectTab } from './components/CategorySelectTab'
 
 type LoadingExploreProps = {
-  selectedCategory?: string
+  selectedCategories?: string[]
   categories?: string[]
 }
 
-export default function LoadingExplore({ categories }: LoadingExploreProps) {
+export default function LoadingExplore({
+  categories,
+  selectedCategories,
+}: LoadingExploreProps) {
   return (
     <>
       <Header />
@@ -17,7 +20,7 @@ export default function LoadingExplore({ categories }: LoadingExploreProps) {
       {categories ? (
         <CategorySelectTab
           categories={categories}
-          selectedCategories={[]}
+          selectedCategories={selectedCategories ?? []}
           onCategorySelect={() => undefined}
         />
       ) : (

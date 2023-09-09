@@ -131,6 +131,7 @@ export default function Explore() {
     return (
       <LoadingExplore
         categories={areCategoriesLoaded ? categories : undefined}
+        selectedCategories={selectedCategories}
       />
     )
   }
