@@ -1,6 +1,6 @@
 import { Header } from '../components/Header'
-import { LoadingRatingCard } from '@/components/RatingCard/loading'
-import { LoadingBookCard } from '@/components/dialogs/BookCard/loading'
+import { LoadingRatingCard } from '@/components/cards/RatingCard/loading'
+import { LoadingBookCard } from '@/components/cards/BookCard/loading'
 
 export default function LoadingRecentRatings() {
   return (

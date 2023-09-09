@@ -27,6 +27,14 @@ module.exports = {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        'overlay-show': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        'pop-up': {
+          '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+          '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+        },
 
         shimmer: {
           '100%': { transform: 'translateX(100%)' },
@@ -39,6 +47,8 @@ module.exports = {
         'slide-in-from-left':
           'slide-in-from-left 350ms cubic-bezier(0.16, 1, 0.3, 1)',
         shimmer: 'shimmer 2s infinite',
+        'overlay-show': 'overlay-show 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'pop-up': 'pop-up 150ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
 
       fontWeight: {

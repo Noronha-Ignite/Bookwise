@@ -1,7 +1,7 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { PropsWithChildren, useRef } from 'react'
+import { PropsWithChildren, useRef, useState } from 'react'
 
 import GoogleSVG from '@/assets/google.svg'
 import GithubSVG from '@/assets/github.svg'
@@ -25,15 +25,20 @@ export const SignInDialog = ({
   const session = useSession()
   const ref = useRef(null)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   if (session.status === 'authenticated') {
     return <>{children}</>
   }
 
   const handleSignIn = async (provider: 'google' | 'github') => {
     try {
+      setIsLoading(true)
       await signIn(provider)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -42,7 +47,7 @@ export const SignInDialog = ({
       <Dialog.Root onOpenChange={onOpenChange} open={open}>
         <Dialog.Trigger asChild>{children}</Dialog.Trigger>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bottom-0 left-0 right-0 top-0 z-20 bg-black-a9" />
+          <Dialog.Overlay className="animate-overlay-show fixed inset-0 bottom-0 left-0 right-0 top-0 z-20 bg-black-a9 " />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
             <Box className="relative min-w-[380px] px-18 py-14">
               <Dialog.Close className="absolute right-4 top-4 text-gray-400">
@@ -55,7 +60,10 @@ export const SignInDialog = ({
                 </h4>
 
                 <div className="flex flex-col gap-4">
-                  <Button onClick={() => handleSignIn('google')}>
+                  <Button
+                    onClick={() => handleSignIn('google')}
+                    disabled={isLoading}
+                  >
                     <Image
                       src={GoogleSVG}
                       alt="Google"
@@ -66,7 +74,10 @@ export const SignInDialog = ({
                       Entrar com Google
                     </span>
                   </Button>
-                  <Button onClick={() => handleSignIn('github')}>
+                  <Button
+                    onClick={() => handleSignIn('github')}
+                    disabled={isLoading}
+                  >
                     <Image
                       src={GithubSVG}
                       alt="Github"

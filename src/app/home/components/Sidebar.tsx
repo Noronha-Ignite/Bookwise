@@ -11,6 +11,7 @@ import { Avatar } from '@/components/core/Avatar'
 import { getFirstName } from '@/utils/string'
 import { useSignInModal } from '@/contexts/signIn'
 import { SidebarItem } from './SidebarItem'
+import { SignOutDialog } from '@/components/dialogs/SignOutDialog'
 
 export const Sidebar = () => {
   const currentRoute = useGetCurrentRoute()
@@ -51,12 +52,11 @@ export const Sidebar = () => {
             size={32}
             name={getFirstName(user.name)}
           />
-          <button
-            className="flex items-center rounded-sm p-1 font-bold transition-colors hover:bg-hover-white"
-            onClick={handleSignOut}
-          >
-            <SignOut className="text-danger" size={20} />
-          </button>
+          <SignOutDialog>
+            <button className="flex items-center rounded-sm p-1 font-bold transition-colors hover:bg-hover-white">
+              <SignOut className="text-danger" size={20} />
+            </button>
+          </SignOutDialog>
         </div>
       ) : (
         <button
