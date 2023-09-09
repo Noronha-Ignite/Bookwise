@@ -6,7 +6,7 @@ import { SignIn, SignOut } from '@/components/core/Icons'
 import LogoSVG from '@/assets/logo.svg'
 
 import { routes, useGetCurrentRoute } from '../routes'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { Avatar } from '@/components/core/Avatar'
 import { getFirstName } from '@/utils/string'
 import { useSignInModal } from '@/contexts/signIn'
@@ -20,10 +20,6 @@ export const Sidebar = () => {
 
   const isAuthenticated = status === 'authenticated'
   const user = data?.user
-
-  const handleSignOut = async () => {
-    await signOut()
-  }
 
   return (
     <div className="flex h-full max-h-[calc(100vh-32px)] w-full flex-col items-center gap-16 rounded-lg bg-gray-700 px-12 py-10 shadow-primary-inner">

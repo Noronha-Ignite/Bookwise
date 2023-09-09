@@ -38,17 +38,17 @@ export default async function RootLayout({
           <QueryProvider>
             <SignInModalProvider>
               <Suspense>{children}</Suspense>
-
-              <ToastContainer
-                position="bottom-right"
-                closeButton={false}
-                limit={3}
-                hideProgressBar
-                autoClose={2000}
-              />
             </SignInModalProvider>
           </QueryProvider>
         </AuthSessionProvider>
+
+        <ToastContainer
+          position="bottom-right"
+          closeButton={false}
+          limit={3}
+          hideProgressBar
+          autoClose={2000}
+        />
       </body>
     </html>
   )
