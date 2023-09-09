@@ -27,7 +27,7 @@ export const SignInDialog = ({
   const [isLoading, setIsLoading] = useState(false)
 
   if (session.status === 'authenticated') {
-    return <></>
+    return <>{children}</>
   }
 
   const handleSignIn = async (provider: 'google' | 'github') => {

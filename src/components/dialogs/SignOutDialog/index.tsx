@@ -14,7 +14,7 @@ export const SignOutDialog = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(false)
 
   if (session.status !== 'authenticated') {
-    return <></>
+    return <>{children}</>
   }
 
   const handleSignOut = async () => {
