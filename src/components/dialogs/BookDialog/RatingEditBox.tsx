@@ -1,6 +1,7 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 
 import { useSession } from 'next-auth/react'
 import { Avatar } from '../../core/Avatar'
@@ -9,8 +10,9 @@ import { StarRating } from '../../core/StarRating'
 import { TextArea } from '../../core/TextArea'
 import { Button } from '../../core/Button'
 import { Check, X } from '../../core/Icons'
-import { useMutation, useQueryClient } from 'react-query'
 import { api } from '@/lib/axios'
+
+import { BookDialogContext } from '.'
 
 type RatePayload = {
   rate: number
@@ -19,13 +21,14 @@ type RatePayload = {
 
 type RatingEditBoxProps = {
   onEnd?: () => void
-  bookId: string
 }
 
-export const RatingEditBox = ({ onEnd, bookId }: RatingEditBoxProps) => {
+export const RatingEditBox = ({ onEnd }: RatingEditBoxProps) => {
   const session = useSession()
 
   const queryClient = useQueryClient()
+
+  const { onBookRated, book } = useContext(BookDialogContext)
 
   const [rate, setRate] = useState(0)
   const [rateDescription, setRateDescription] = useState('')
@@ -34,25 +37,32 @@ export const RatingEditBox = ({ onEnd, bookId }: RatingEditBoxProps) => {
     api.post<RatingWithUser>('/ratings', payload, {
       params: {
         user: session.data?.user.id,
-        book: bookId,
+        book: book.id,
       },
     })
 
   const addRatingToCache = (newRating: RatingWithUser) => {
-    const BOOK_RATING_KEY = [bookId, '@bookwise:fetch-book-ratings']
+    const BOOK_RATING_KEY = [book.id, '@bookwise:fetch-book-ratings']
 
     const previousValue =
       queryClient.getQueryData<RatingWithUser[]>(BOOK_RATING_KEY)
 
     queryClient.setQueryData(
-      [bookId, '@bookwise:fetch-book-ratings'],
+      [book.id, '@bookwise:fetch-book-ratings'],
       [newRating, ...(previousValue ?? [])],
     )
   }
 
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: createRatingRequest,
-    onSuccess: ({ data }) => addRatingToCache(data),
+    onSuccess: ({ data }) => {
+      addRatingToCache(data)
+
+      onBookRated?.({
+        ...book,
+        ratings: [...book.ratings, data],
+      })
+    },
   })
 
   const handleSubmit = async (e: FormEvent) => {

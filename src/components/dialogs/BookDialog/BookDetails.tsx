@@ -5,12 +5,13 @@ import { Box } from '../../core/Box'
 import { StarRating } from '../../core/StarRating'
 
 import { getRatingAverage } from '@/utils/rating'
+import { useContext } from 'react'
 
-type BookDetailsProps = {
-  book: BookWithRatingAndCategories
-}
+import { BookDialogContext } from '.'
 
-export const BookDetails = ({ book }: BookDetailsProps) => {
+export const BookDetails = () => {
+  const { book } = useContext(BookDialogContext)
+
   const ratingAmount = book.ratings.length
 
   return (

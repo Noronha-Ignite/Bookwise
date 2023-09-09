@@ -8,12 +8,17 @@ import { twMerge } from 'tailwind-merge'
 
 type BookCardProps = {
   book: BookWithRatingAndCategories
+  onBookRated?: (bookRated: BookWithRatingAndCategories) => void
   variant?: 'big' | 'normal'
 }
 
-export const BookCard = ({ book, variant = 'normal' }: BookCardProps) => {
+export const BookCard = ({
+  book,
+  variant = 'normal',
+  onBookRated,
+}: BookCardProps) => {
   return (
-    <BookDialog book={book}>
+    <BookDialog book={book} onBookRated={onBookRated}>
       <Box variant="small" clickable>
         <div className="flex gap-5">
           <Image

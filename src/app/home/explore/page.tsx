@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useState } from 'react'
 
 import { SearchInput } from '@/components/core/SearchInput'
@@ -31,6 +31,8 @@ const fetchBooks = async (query: FetchBooksQuery) => {
 }
 
 export default function Explore() {
+  const queryClient = useQueryClient()
+
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [query, setQuery] = useState<string>('')
 
@@ -67,6 +69,27 @@ export default function Explore() {
       staleTime: 1000 * 60 * 30, // 30 min
     },
   )
+
+  const onBookRated = (bookRated: BookWithRatingAndCategories) => {
+    const key = [
+      selectedCategory,
+      debouncedQuery,
+      '@bookwise:books-explore-fetch',
+    ]
+
+    queryClient.setQueryData<FetchBooksResponse>(key, (previous) => {
+      const updatedBooks = (previous?.books ?? []).map((book) => {
+        if (book.id !== bookRated.id) return book
+
+        return bookRated
+      })
+
+      return {
+        ...previous,
+        books: updatedBooks,
+      }
+    })
+  }
 
   const categories = [
     { label: 'Todos', value: '' },
@@ -119,7 +142,12 @@ export default function Explore() {
       )}
       <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {data?.books.map((book) => (
-          <BookCard key={book.id} book={book} variant="big" />
+          <BookCard
+            key={book.id}
+            book={book}
+            variant="big"
+            onBookRated={onBookRated}
+          />
         ))}
       </div>
     </>

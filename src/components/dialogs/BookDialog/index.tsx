@@ -1,7 +1,7 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, createContext } from 'react'
 
 import { X } from '../../core/Icons'
 import { BookDetails } from './BookDetails'
@@ -9,11 +9,15 @@ import { BookRatings } from './BookRatings'
 
 type BookDialogProps = {
   book: BookWithRatingAndCategories
+  onBookRated?: (bookRated: BookWithRatingAndCategories) => void
 }
+
+export const BookDialogContext = createContext({} as BookDialogProps)
 
 export const BookDialog = ({
   children,
   book,
+  onBookRated,
 }: PropsWithChildren<BookDialogProps>) => {
   return (
     <Dialog.Root>
@@ -26,8 +30,10 @@ export const BookDialog = ({
                 <X size={24} />
               </Dialog.Close>
 
-              <BookDetails book={book} />
-              <BookRatings bookId={book.id} />
+              <BookDialogContext.Provider value={{ book, onBookRated }}>
+                <BookDetails />
+                <BookRatings />
+              </BookDialogContext.Provider>
             </div>
           </Dialog.Content>
         </Dialog.Overlay>

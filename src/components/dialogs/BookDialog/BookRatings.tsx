@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/react'
 
@@ -13,16 +13,15 @@ import { Link } from '../../core/Link'
 import { LoadingBookRating } from './LoadingBookRating'
 import { RatingEditBox } from './RatingEditBox'
 import { Avatar } from '../../core/Avatar'
+import { BookDialogContext } from '.'
 
-type BookRatingsProps = {
-  bookId: string
-}
-
-export const BookRatings = ({ bookId }: BookRatingsProps) => {
+export const BookRatings = () => {
   const { status } = useSession()
   const { openSignInModal } = useSignInModal()
 
   const [isRating, setIsRating] = useState(false)
+
+  const { book } = useContext(BookDialogContext)
 
   const isAuthenticated = status === 'authenticated'
 
@@ -31,12 +30,12 @@ export const BookRatings = ({ bookId }: BookRatingsProps) => {
     isLoading,
     isFetching,
   } = useQuery<RatingWithUser[]>(
-    [bookId, '@bookwise:fetch-book-ratings'],
+    [book.id, '@bookwise:fetch-book-ratings'],
     () =>
       api
         .get<RatingWithUser[]>('/ratings', {
           params: {
-            book: bookId,
+            book: book.id,
           },
         })
         .then((response) => response.data),
@@ -67,9 +66,7 @@ export const BookRatings = ({ bookId }: BookRatingsProps) => {
         )}
       </header>
 
-      {isRating && (
-        <RatingEditBox onEnd={() => setIsRating(false)} bookId={bookId} />
-      )}
+      {isRating && <RatingEditBox onEnd={() => setIsRating(false)} />}
 
       {ratings?.map((rating) => (
         <Box key={rating.id} className="flex flex-col gap-8">
