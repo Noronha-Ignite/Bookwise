@@ -1,6 +1,6 @@
 'use client'
 
-import { SignInDialog } from '@/components/SignInDialog'
+import { SignInDialog } from '@/components/dialogs/SignInDialog'
 import { PropsWithChildren, createContext, useContext, useState } from 'react'
 
 type SignInContextProps = {

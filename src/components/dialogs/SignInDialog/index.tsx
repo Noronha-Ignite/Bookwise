@@ -6,10 +6,10 @@ import { PropsWithChildren, useRef } from 'react'
 import GoogleSVG from '@/assets/google.svg'
 import GithubSVG from '@/assets/github.svg'
 
-import { X } from '../core/Icons'
+import { X } from '../../core/Icons'
 import { signIn, useSession } from 'next-auth/react'
-import { Box } from '../core/Box'
-import { Button } from '../core/Button'
+import { Box } from '../../core/Box'
+import { Button } from '../../core/Button'
 import Image from 'next/image'
 
 type SignInDialogProps = {

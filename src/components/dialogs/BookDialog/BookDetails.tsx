@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
-import { BookmarkSimple, BookOpen } from '../core/Icons'
-import { Box } from '../core/Box'
-import { StarRating } from '../core/StarRating'
+import { BookmarkSimple, BookOpen } from '../../core/Icons'
+import { Box } from '../../core/Box'
+import { StarRating } from '../../core/StarRating'
 
 import { getRatingAverage } from '@/utils/rating'
 

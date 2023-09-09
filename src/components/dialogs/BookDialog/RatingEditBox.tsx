@@ -3,12 +3,12 @@
 import { FormEvent, useState } from 'react'
 
 import { useSession } from 'next-auth/react'
-import { Avatar } from '../core/Avatar'
-import { Box } from '../core/Box'
-import { StarRating } from '../core/StarRating'
-import { TextArea } from '../core/TextArea'
-import { Button } from '../core/Button'
-import { Check, X } from '../core/Icons'
+import { Avatar } from '../../core/Avatar'
+import { Box } from '../../core/Box'
+import { StarRating } from '../../core/StarRating'
+import { TextArea } from '../../core/TextArea'
+import { Button } from '../../core/Button'
+import { Check, X } from '../../core/Icons'
 import { useMutation, useQueryClient } from 'react-query'
 import { api } from '@/lib/axios'
 

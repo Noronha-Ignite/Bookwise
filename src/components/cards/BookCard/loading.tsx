@@ -1,6 +1,6 @@
-import { SkeletonCard } from '../core/SkeletonCard'
-import { Box } from '../core/Box'
-import { StarRating } from '../core/StarRating'
+import { SkeletonCard } from '../../core/SkeletonCard'
+import { Box } from '../../core/Box'
+import { StarRating } from '../../core/StarRating'
 
 type LoadingBookCardProps = {
   variant?: 'big' | 'normal'

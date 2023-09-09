@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
-import { Box } from '../core/Box'
-import { StarRating } from '../core/StarRating'
+import { Box } from '../../core/Box'
+import { StarRating } from '../../core/StarRating'
 import { getRatingAverage } from '@/utils/rating'
-import { BookDialog } from '../BookDialog'
+import { BookDialog } from '../../dialogs/BookDialog'
 import { twMerge } from 'tailwind-merge'
 
 type BookCardProps = {

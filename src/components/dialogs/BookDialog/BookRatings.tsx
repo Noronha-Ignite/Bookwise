@@ -7,12 +7,12 @@ import { api } from '@/lib/axios'
 import { formatDifferenceToToday } from '@/utils/date'
 import { useSignInModal } from '@/contexts/signIn'
 
-import { Box } from '../core/Box'
-import { StarRating } from '../core/StarRating'
-import { Link } from '../core/Link'
+import { Box } from '../../core/Box'
+import { StarRating } from '../../core/StarRating'
+import { Link } from '../../core/Link'
 import { LoadingBookRating } from './LoadingBookRating'
 import { RatingEditBox } from './RatingEditBox'
-import { Avatar } from '../core/Avatar'
+import { Avatar } from '../../core/Avatar'
 
 type BookRatingsProps = {
   bookId: string

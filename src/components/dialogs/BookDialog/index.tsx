@@ -3,10 +3,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { PropsWithChildren } from 'react'
 
-import { X } from '../core/Icons'
+import { X } from '../../core/Icons'
 import { BookDetails } from './BookDetails'
 import { BookRatings } from './BookRatings'
-import { Scrollable } from '../core/Scrollable'
 
 type BookDialogProps = {
   book: BookWithRatingAndCategories

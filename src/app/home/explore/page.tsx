@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { useState } from 'react'
 
 import { SearchInput } from '@/components/core/SearchInput'
-import { BookCard } from '@/components/BookCard'
+import { BookCard } from '@/components/cards/BookCard'
 import { Books } from '@/components/core/Icons'
 import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
