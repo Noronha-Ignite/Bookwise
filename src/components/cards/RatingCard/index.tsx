@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
-import { Box } from '../core/Box'
+import { Box } from '../../core/Box'
 import { formatDifferenceToToday } from '@/utils/date'
-import { StarRating } from '../core/StarRating'
-import { Avatar } from '../core/Avatar'
+import { StarRating } from '../../core/StarRating'
+import { Avatar } from '../../core/Avatar'
 
 type RatingCardProps = {
   rating: RatingWithUserAndBook
@@ -12,7 +12,7 @@ type RatingCardProps = {
 export const RatingCard = ({ rating }: RatingCardProps) => {
   return (
     <Box className="flex flex-col gap-8">
-      <header className="flex gap-4">
+      <header className="flex flex-wrap gap-4">
         <Avatar
           src={rating.user.avatar_url ?? ''}
           alt={rating.user.name}
@@ -22,7 +22,7 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
         <div className="flex flex-1 flex-col justify-between">
           <h4>{rating.user.name}</h4>
 
-          <p className="capitalize text-gray-400">
+          <p className="min-w-[120px] capitalize text-gray-400">
             {formatDifferenceToToday(rating.created_at)}
           </p>
         </div>
@@ -30,13 +30,15 @@ export const RatingCard = ({ rating }: RatingCardProps) => {
         <StarRating rate={rating.rate} />
       </header>
 
-      <div className="flex gap-5">
+      <p>{rating.description}</p>
+
+      <div className="flex max-h-40 gap-5 overflow-y-auto">
         <Image
           src={`/images/books/${rating.book.cover_url}`}
           alt={rating.book.name}
           width={108}
           height={152}
-          className="h-fit"
+          className="hidden h-fit xs:block"
         />
 
         <div className="flex flex-1 flex-col gap-5">

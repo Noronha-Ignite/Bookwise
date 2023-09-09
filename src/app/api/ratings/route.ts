@@ -95,8 +95,12 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json(ratings)
   } catch (err) {
-    console.log(err)
+    if (err instanceof z.ZodError) {
+      const message = err.issues[0].message
 
-    return NextResponse.json(err, { status: 500 })
+      return NextResponse.json({ message }, { status: 400 })
+    }
+
+    return NextResponse.json({ message: 'Erro desconhecido.' }, { status: 500 })
   }
 }

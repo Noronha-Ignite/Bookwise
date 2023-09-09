@@ -1,21 +1,15 @@
 import { Header } from '../components/Header'
-import { LoadingBookCard } from '@/components/BookCard/loading'
+import { LoadingBookCard } from '@/components/cards/BookCard/loading'
 import { SkeletonCard } from '@/components/core/SkeletonCard'
 import { twMerge } from 'tailwind-merge'
 import { CategorySelectTab } from './components/CategorySelectTab'
 
 type LoadingExploreProps = {
   selectedCategory?: string
-  categories?: {
-    label: string
-    value: string
-  }[]
+  categories?: string[]
 }
 
-export default function LoadingExplore({
-  categories,
-  selectedCategory,
-}: LoadingExploreProps) {
+export default function LoadingExplore({ categories }: LoadingExploreProps) {
   return (
     <>
       <Header />
@@ -23,7 +17,7 @@ export default function LoadingExplore({
       {categories ? (
         <CategorySelectTab
           categories={categories}
-          selectedCategory={selectedCategory ?? ''}
+          selectedCategories={[]}
           onCategorySelect={() => undefined}
         />
       ) : (

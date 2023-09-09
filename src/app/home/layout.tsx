@@ -8,7 +8,7 @@ export default function HomeLayout({ children }: PropsWithChildren) {
         <Sidebar />
       </div>
 
-      <main className="no-scrollbar max-h-screen w-full max-w-5xl overflow-auto">
+      <main className="no-scrollbar max-h-screen w-full max-w-5xl overflow-auto pb-8">
         {children}
       </main>
     </div>

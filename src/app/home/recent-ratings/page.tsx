@@ -1,8 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { UserList, CaretRight } from '@/components/core/Icons'
 import { Link } from '@/components/core/Link'
-import { RatingCard } from '@/components/RatingCard'
-import { BookCard } from '@/components/BookCard'
+import { RatingCard } from '@/components/cards/RatingCard'
+import { BookCard } from '@/components/cards/BookCard'
 
 import { Header } from '../components/Header'
 import { RouteNames } from '../routes'

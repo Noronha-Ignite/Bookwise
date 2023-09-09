@@ -1,10 +1,10 @@
 'use client'
 
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useState } from 'react'
 
 import { SearchInput } from '@/components/core/SearchInput'
-import { BookCard } from '@/components/BookCard'
+import { BookCard } from '@/components/cards/BookCard'
 import { Books } from '@/components/core/Icons'
 import useDebounce from '@/hooks/useDebounce'
 import { Header } from '../components/Header'
@@ -14,7 +14,7 @@ import LoadingExplore from './loading'
 import { NoItemFound } from '@/components/core/NoItemFound'
 
 type FetchBooksQuery = {
-  category?: string
+  categories?: string[]
   search?: string
 }
 
@@ -24,14 +24,19 @@ type FetchBooksResponse = {
 
 const fetchBooks = async (query: FetchBooksQuery) => {
   const response = await api.get<FetchBooksResponse>('/books', {
-    params: query,
+    params: {
+      categories: JSON.stringify(query.categories),
+      search: query.search,
+    },
   })
 
   return response.data
 }
 
 export default function Explore() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const queryClient = useQueryClient()
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [query, setQuery] = useState<string>('')
 
   const debouncedQuery = useDebounce(query, 650)
@@ -41,10 +46,10 @@ export default function Explore() {
     isLoading: isLoadingBooks,
     isFetching: isFetchingBooks,
   } = useQuery(
-    [selectedCategory, debouncedQuery, '@bookwise:books-explore-fetch'],
+    [selectedCategories, debouncedQuery, '@bookwise:books-explore-fetch'],
     () =>
       fetchBooks({
-        category: selectedCategory || undefined,
+        categories: selectedCategories,
         search: debouncedQuery || undefined,
       }),
     {
@@ -68,27 +73,64 @@ export default function Explore() {
     },
   )
 
-  const categories = [
-    { label: 'Todos', value: '' },
-    ...(categoriesFetched?.data.categories ?? []).map((category) => ({
-      label: category.name,
-      value: category.name,
-    })),
-  ]
+  const handleBookRated = (bookRated: BookWithRatingAndCategories) => {
+    const key = [
+      selectedCategories,
+      debouncedQuery,
+      '@bookwise:books-explore-fetch',
+    ]
+
+    queryClient.setQueryData<FetchBooksResponse>(key, (previous) => {
+      const updatedBooks = (previous?.books ?? []).map((book) => {
+        if (book.id !== bookRated.id) return book
+
+        return bookRated
+      })
+
+      return {
+        ...previous,
+        books: updatedBooks,
+      }
+    })
+  }
+
+  const handleSelectCategory = (category: string) => {
+    if (category === 'all') {
+      return setSelectedCategories([])
+    }
+
+    return setSelectedCategories((previous) => {
+      let alreadyHasCategory = false
+
+      const filteredCategories = previous.filter((prevCategory) => {
+        if (prevCategory === category) {
+          alreadyHasCategory = true
+        }
+
+        return !alreadyHasCategory
+      })
+
+      if (!alreadyHasCategory) {
+        filteredCategories.push(category)
+      }
+
+      return filteredCategories
+    })
+  }
+
+  const categories =
+    categoriesFetched?.data.categories.map((category) => category.name) ?? []
 
   const isPageReady =
     !isLoadingBooks &&
     !isLoadingCategories &&
     !isFetchingBooks &&
-    !isFetchingCategories &&
-    !!categories.length &&
-    !!data?.books
+    !isFetchingCategories
 
   if (!isPageReady) {
     return (
       <LoadingExplore
         categories={areCategoriesLoaded ? categories : undefined}
-        selectedCategory={areCategoriesLoaded ? selectedCategory : undefined}
       />
     )
   }
@@ -100,13 +142,14 @@ export default function Explore() {
           placeholder="Buscar livro ou autor"
           onChange={setQuery}
           value={query}
+          autoFocus
         />
       </Header>
 
       <CategorySelectTab
         categories={categories}
-        onCategorySelect={setSelectedCategory}
-        selectedCategory={selectedCategory}
+        onCategorySelect={handleSelectCategory}
+        selectedCategories={selectedCategories}
       />
 
       {!data?.books.length && (
@@ -118,7 +161,12 @@ export default function Explore() {
       )}
       <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {data?.books.map((book) => (
-          <BookCard key={book.id} book={book} variant="big" />
+          <BookCard
+            key={book.id}
+            book={book}
+            variant="big"
+            onBookRated={handleBookRated}
+          />
         ))}
       </div>
     </>

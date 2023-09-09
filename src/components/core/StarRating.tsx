@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Star } from './Icons'
 import { twMerge } from 'tailwind-merge'
 
@@ -13,6 +13,10 @@ export const StarRating = ({ rate, onSelect }: StarRatingProps) => {
   const interactable = !!onSelect
 
   const [currentRate, setCurrentRate] = useState(rate)
+
+  useEffect(() => {
+    setCurrentRate(rate)
+  }, [rate])
 
   return (
     <div
