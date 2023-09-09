@@ -7,18 +7,24 @@ export const GET = async (req: NextRequest) => {
   try {
     const searchParams = req.nextUrl.searchParams
 
-    const category = searchParams.get('category') || undefined
+    const categoriesStringified = searchParams.get('categories') || '[]'
     const query = searchParams.get('search') || ''
+
+    const categories: string[] = JSON.parse(categoriesStringified)
 
     const booksRaw = await prisma.book.findMany({
       where: {
-        categories: {
-          some: {
-            category: {
-              name: category,
-            },
-          },
-        },
+        categories: categories.length
+          ? {
+              some: {
+                category: {
+                  name: {
+                    in: categories,
+                  },
+                },
+              },
+            }
+          : undefined,
         OR: [
           {
             name: {

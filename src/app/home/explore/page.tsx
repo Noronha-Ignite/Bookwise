@@ -14,7 +14,7 @@ import LoadingExplore from './loading'
 import { NoItemFound } from '@/components/core/NoItemFound'
 
 type FetchBooksQuery = {
-  category?: string
+  categories?: string[]
   search?: string
 }
 
@@ -24,7 +24,10 @@ type FetchBooksResponse = {
 
 const fetchBooks = async (query: FetchBooksQuery) => {
   const response = await api.get<FetchBooksResponse>('/books', {
-    params: query,
+    params: {
+      categories: JSON.stringify(query.categories),
+      search: query.search,
+    },
   })
 
   return response.data
@@ -33,7 +36,7 @@ const fetchBooks = async (query: FetchBooksQuery) => {
 export default function Explore() {
   const queryClient = useQueryClient()
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [query, setQuery] = useState<string>('')
 
   const debouncedQuery = useDebounce(query, 650)
@@ -43,10 +46,10 @@ export default function Explore() {
     isLoading: isLoadingBooks,
     isFetching: isFetchingBooks,
   } = useQuery(
-    [selectedCategory, debouncedQuery, '@bookwise:books-explore-fetch'],
+    [selectedCategories, debouncedQuery, '@bookwise:books-explore-fetch'],
     () =>
       fetchBooks({
-        category: selectedCategory || undefined,
+        categories: selectedCategories,
         search: debouncedQuery || undefined,
       }),
     {
@@ -70,9 +73,9 @@ export default function Explore() {
     },
   )
 
-  const onBookRated = (bookRated: BookWithRatingAndCategories) => {
+  const handleBookRated = (bookRated: BookWithRatingAndCategories) => {
     const key = [
-      selectedCategory,
+      selectedCategories,
       debouncedQuery,
       '@bookwise:books-explore-fetch',
     ]
@@ -91,27 +94,43 @@ export default function Explore() {
     })
   }
 
-  const categories = [
-    { label: 'Todos', value: '' },
-    ...(categoriesFetched?.data.categories ?? []).map((category) => ({
-      label: category.name,
-      value: category.name,
-    })),
-  ]
+  const handleSelectCategory = (category: string) => {
+    if (category === 'all') {
+      return setSelectedCategories([])
+    }
+
+    return setSelectedCategories((previous) => {
+      let alreadyHasCategory = false
+
+      const filteredCategories = previous.filter((prevCategory) => {
+        if (prevCategory === category) {
+          alreadyHasCategory = true
+        }
+
+        return !alreadyHasCategory
+      })
+
+      if (!alreadyHasCategory) {
+        filteredCategories.push(category)
+      }
+
+      return filteredCategories
+    })
+  }
+
+  const categories =
+    categoriesFetched?.data.categories.map((category) => category.name) ?? []
 
   const isPageReady =
     !isLoadingBooks &&
     !isLoadingCategories &&
     !isFetchingBooks &&
-    !isFetchingCategories &&
-    !!categories.length &&
-    !!data?.books
+    !isFetchingCategories
 
   if (!isPageReady) {
     return (
       <LoadingExplore
         categories={areCategoriesLoaded ? categories : undefined}
-        selectedCategory={areCategoriesLoaded ? selectedCategory : undefined}
       />
     )
   }
@@ -129,8 +148,8 @@ export default function Explore() {
 
       <CategorySelectTab
         categories={categories}
-        onCategorySelect={setSelectedCategory}
-        selectedCategory={selectedCategory}
+        onCategorySelect={handleSelectCategory}
+        selectedCategories={selectedCategories}
       />
 
       {!data?.books.length && (
@@ -146,7 +165,7 @@ export default function Explore() {
             key={book.id}
             book={book}
             variant="big"
-            onBookRated={onBookRated}
+            onBookRated={handleBookRated}
           />
         ))}
       </div>
