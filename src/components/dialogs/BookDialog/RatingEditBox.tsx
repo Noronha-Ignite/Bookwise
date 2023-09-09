@@ -13,6 +13,8 @@ import { Check, X } from '../../core/Icons'
 import { api } from '@/lib/axios'
 
 import { BookDialogContext } from '.'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
 
 type RatePayload = {
   rate: number
@@ -62,6 +64,10 @@ export const RatingEditBox = ({ onEnd }: RatingEditBoxProps) => {
         ...book,
         ratings: [...book.ratings, data],
       })
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      console.log(error)
+      toast.error(error.response?.data.message ?? error.message)
     },
   })
 
