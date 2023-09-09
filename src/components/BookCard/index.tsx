@@ -4,6 +4,7 @@ import { Box } from '../core/Box'
 import { StarRating } from '../core/StarRating'
 import { getRatingAverage } from '@/utils/rating'
 import { BookDialog } from '../BookDialog'
+import { twMerge } from 'tailwind-merge'
 
 type BookCardProps = {
   book: BookWithRatingAndCategories
@@ -20,7 +21,10 @@ export const BookCard = ({ book, variant = 'normal' }: BookCardProps) => {
             alt={book.name}
             width={variant === 'normal' ? 64 : 108}
             height={variant === 'normal' ? 94 : 152}
-            className="h-full object-cover"
+            className={twMerge(
+              'h-32 w-20 object-cover xs:h-full',
+              variant === 'normal' && 'h-20 w-12',
+            )}
             priority
           />
 

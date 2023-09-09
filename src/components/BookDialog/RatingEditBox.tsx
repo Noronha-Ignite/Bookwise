@@ -75,7 +75,7 @@ export const RatingEditBox = ({ onEnd, bookId }: RatingEditBoxProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <Box className="flex flex-col gap-3">
-        <header className="mb-3 flex items-start justify-between">
+        <header className="mb-3 flex flex-wrap items-start justify-between gap-4">
           <Avatar
             src={user.avatar_url ?? ''}
             alt={user.name}

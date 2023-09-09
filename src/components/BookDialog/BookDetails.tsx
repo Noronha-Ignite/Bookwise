@@ -15,13 +15,13 @@ export const BookDetails = ({ book }: BookDetailsProps) => {
 
   return (
     <Box variant="big">
-      <div className="flex gap-5 border-b border-gray-600 pb-10">
+      <div className="grid grid-cols-1 gap-5 border-b border-gray-600 pb-10 xs:grid-cols-[172px,1fr]">
         <Image
           src={`/images/books/${book.cover_url}`}
           alt={book.name}
           width={172}
           height={242}
-          className="h-full object-cover"
+          className="mx-auto h-full object-cover"
         />
 
         <div className="flex flex-1 flex-col justify-between">
@@ -40,7 +40,7 @@ export const BookDetails = ({ book }: BookDetailsProps) => {
         </div>
       </div>
 
-      <footer className="grid grid-cols-2 gap-16 py-6">
+      <footer className="grid grid-cols-1 gap-4 py-6 xs:grid-cols-2 xs:gap-16">
         <div className="flex items-center gap-4 text-green-100">
           <BookmarkSimple size={24} />
           <div className="flex flex-col flex-wrap text-gray-100">
