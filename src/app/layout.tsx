@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
 import { getServerSession } from 'next-auth'
+import { Analytics } from '@vercel/analytics/react'
 
 import { QueryProvider } from '@/contexts/queryClient'
 import { AuthSessionProvider } from '@/contexts/session'
@@ -50,6 +51,7 @@ export default async function RootLayout({
           hideProgressBar
           autoClose={2000}
         />
+        <Analytics />
       </body>
     </html>
   )
